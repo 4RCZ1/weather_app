@@ -5,9 +5,7 @@ import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
 import {createStringXY} from 'ol/coordinate';
-import {defaults as defaultControls} from 'ol/control';
 import {transform} from 'ol/proj';
-import WeatherFetcher from "./WeatherFetcher";
 
 const apiKey = "26b014a7d03305a8996e7963db4c3635";
 
