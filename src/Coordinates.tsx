@@ -14,10 +14,6 @@ const apiKey = "26b014a7d03305a8996e7963db4c3635";
 const mousePositionControl = new MousePosition({
     coordinateFormat: createStringXY(4),
     projection: 'EPSG:4326',
-    // comment the following two lines to have the mouse position
-    // be placed within the map.
-    //className: 'custom-mouse-position',
-    //target: document.getElementById('mouse-position') == null ? undefined : document.getElementById('mouse-position'),
 })
 
 interface Setter {
@@ -29,7 +25,6 @@ const Coordinates = ({setter} : Setter) => {
     const mapElement : React.RefObject<HTMLDivElement> = React.createRef();
     useEffect(() => {
         const initialMap = new Map({
-            controls: defaultControls().extend([mousePositionControl]),
             layers: [
                 new TileLayer({
                     source: new OSM(),

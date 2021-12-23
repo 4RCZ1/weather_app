@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Coordinates from "./Coordinates";
 import WeatherFetcher from "./WeatherFetcher";
 
 function App() {
-    let coordinates : number[] = [0,0];
-    const setCoordinates = (val : number[]) => {
-        coordinates = val;
-    };
+    let defaultCoordinates : number[] = [0,0];
+    const [coordinates, setCoordinates] = useState(defaultCoordinates);
+    console.log("render");
+    // const setCoordinates = (val : number[]) => {
+    //     console.log(val);
+    //     coordinates = val;
+    // };
     return (
         <div className="App">
             <Coordinates setter={setCoordinates}/>
