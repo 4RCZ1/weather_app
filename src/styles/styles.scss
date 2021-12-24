@@ -1,0 +1,13 @@
+html, body{
+  display:flex;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+}
+#map{
+  width:100vw;
+  height:60vh;
+}

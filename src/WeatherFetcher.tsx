@@ -5,6 +5,7 @@ interface Weather {
     temp: number;
     feels_like: number;
     pressure: number;
+    humidity: number;
     clouds:{
         all: number;
     };
@@ -48,10 +49,10 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
     useEffect(() => {
         // @ts-ignore
         axios(options).then(response => {
-            console.log(response.data.weather);
             setWeather({
                 temp: response.data.main.temp,
                 feels_like: response.data.main.feels_like,
+                humidity: response.data.main.humidity,
                 pressure: response.data.main.pressure,
                 clouds: response.data.clouds,
                 weather: response.data.weather[0]
@@ -71,10 +72,11 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
         if (weather && location && coordinates) {
             return (
                 <div>
-                    <h1>Miejscowość: {location.name}</h1>
+                    <h1>Najbliższy punkt pomiaru: {location.name}</h1>
                     <h2>Kraj: {location.country}</h2>
                     <h3>Temperatura: {weather.temp}°C</h3>
                     <h3>Temperatura odczuwalna: {weather.feels_like}°C</h3>
+                    <h3>Wilgotność: {weather.humidity}%</h3>
                     <h3>Ciśnienie: {weather.pressure} hPa</h3>
                     <h3>Zachmurzenie: {weather.clouds.all}%</h3>
                     <img src={'http://openweathermap.org/img/wn/' + weather.weather.icon + '@2x.png'} alt={weather.weather.description}/>
