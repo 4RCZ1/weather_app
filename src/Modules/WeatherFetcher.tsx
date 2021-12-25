@@ -1,6 +1,10 @@
 import React,{useEffect} from 'react';
 import axios from 'axios';
 
+import Temperature from "./WeatherData/Temperature";
+import Type from "./WeatherData/Type";
+import DayNightCycle from "./WeatherData/DayNightCycle";
+
 interface Weather {
     temp: number;
     feels_like: number;
@@ -13,7 +17,12 @@ interface Weather {
         description: string;
         icon: string;
     };
-
+    wind: {
+        speed: number;
+        deg: number;
+    };
+    sunrise:number;
+    sunset:number;
 }
 interface Location {
     name: string;
@@ -49,13 +58,17 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
     useEffect(() => {
         // @ts-ignore
         axios(options).then(response => {
+            console.log(response);
             setWeather({
                 temp: response.data.main.temp,
                 feels_like: response.data.main.feels_like,
                 humidity: response.data.main.humidity,
                 pressure: response.data.main.pressure,
                 clouds: response.data.clouds,
-                weather: response.data.weather[0]
+                weather: response.data.weather[0],
+                wind: response.data.wind,
+                sunrise: response.data.sys.sunrise,
+                sunset: response.data.sys.sunset
             });
             setLocation({
                 country: response.data.sys.country,
@@ -71,15 +84,15 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
     const weatherOutput = () => {
         if (weather && location && coordinates) {
             return (
-                <div>
+                <div id={"weather"}>
                     <h1>Najbliższy punkt pomiaru: {location.name}</h1>
                     <h2>Kraj: {location.country}</h2>
-                    <h3>Temperatura: {weather.temp}°C</h3>
-                    <h3>Temperatura odczuwalna: {weather.feels_like}°C</h3>
+                    <Temperature temp={weather.temp} feels_like={weather.feels_like} />
                     <h3>Wilgotność: {weather.humidity}%</h3>
                     <h3>Ciśnienie: {weather.pressure} hPa</h3>
                     <h3>Zachmurzenie: {weather.clouds.all}%</h3>
-                    <img src={'http://openweathermap.org/img/wn/' + weather.weather.icon + '@2x.png'} alt={weather.weather.description}/>
+                    <Type type={weather.weather}/>
+                    <DayNightCycle sunset={weather.sunset} sunrise={weather.sunrise}/>
                 </div>
             );
         } else {

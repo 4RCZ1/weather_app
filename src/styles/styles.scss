@@ -1,3 +1,6 @@
+@use './type';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 html, body{
   display:flex;
   margin: 0;
@@ -10,4 +13,9 @@ html, body{
 #map{
   width:100vw;
   height:60vh;
+}
+#weather{
+  display:flex;
+  flex-direction:column;
+  margin:1vh 5vw;
 }

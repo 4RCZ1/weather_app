@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+#type {
+  display: flex;
+}
+#type h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 html, body {
   display: flex;
   margin: 0;
@@ -11,6 +21,12 @@ html, body {
 #map {
   width: 100vw;
   height: 60vh;
+}
+
+#weather {
+  display: flex;
+  flex-direction: column;
+  margin: 1vh 5vw;
 }
 
 /*# sourceMappingURL=styles.css.map */
