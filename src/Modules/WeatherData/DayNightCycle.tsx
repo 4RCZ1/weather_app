@@ -19,57 +19,55 @@ function isInViewport(element : HTMLElement | null) : boolean {
 }
 
 const DayNightCycle = ({sunrise, sunset}: Cycle) => {
-    const [timeInterval, setTimeInterval] = useState<null | NodeJS.Timer>(null);
-    let step = 0;
-    const maxStep = 30;
+    let interval : null | NodeJS.Timer = null;
+    let mainStep = 0;
+    const maxMainStep = 90;
     const canvasRef = createRef<HTMLCanvasElement>();
 
-    const initialAnimation = () => {
+    const initialAnimation = (prevX : number) => {
         const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
         if (canvas) {
-            if(isInViewport(document.getElementById('canvas1'))){
-                const ctx = canvas.getContext('2d');
-                //const time = new Date().getTime();
-                const width = canvas.width;
-                const height = canvas.height;
-                const substepsPerStep = Math.ceil(width / maxStep);
-                for (let i = 0 ; i < substepsPerStep ; i++) {
-                    const x = step*substepsPerStep + i;
-                    const y = height / 2;
-                    const x2 = x + 1;
-                    const radians = x2 / width * Math.PI * 2;
-                    const y2 = y + 100 * Math.cos(radians);
-                    if (ctx) {
-                        ctx.beginPath();
-                        ctx.moveTo(x, y);
-                        ctx.lineTo(x2, y2);
-                        ctx.stroke();
-                    }
+            const ctx = canvas.getContext('2d');
+            //const time = new Date().getTime();
+            const width = canvas.width;
+            const height = canvas.height;
+            const substepsPerStep = Math.abs(Math.ceil(1.5*(width/maxMainStep)*Math.sin((width/maxMainStep * mainStep)/width * Math.PI)));
+            console.log(substepsPerStep);
+            let x2 = prevX;
+            for (let i = 0 ; i < substepsPerStep ; i++) {
+                const y = height / 2;
+                x2++;
+                const radians = x2 / width * Math.PI * 2;
+                const y2 = y + height/3 * Math.cos(radians);
+                if (ctx) {
+                    ctx.beginPath();
+                    ctx.moveTo(x2-1, y);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
                 }
-                step++;
-                if (step <= maxStep) {
-                    requestAnimationFrame(initialAnimation);
-                }
+            }
+            mainStep++;
+            if (mainStep <= maxMainStep) {
+                requestAnimationFrame(()=>initialAnimation(x2));
             }
         }
     }
 
     useEffect(() => {
-        if (timeInterval === null) {
-            setTimeInterval(setInterval(()=>{
-                if(isInViewport(document.getElementById('canvas1'))){
-                    // @ts-ignore
-                    clearInterval(timeInterval);
-                    initialAnimation();
+        interval = setInterval(() => {
+            if (isInViewport(document.getElementById('canvas1'))) {
+                if (interval) {
+                    clearInterval(interval);
                 }
-            }, 100));
-        }
+                initialAnimation(0);
+            }
+        }, 100);
     }, []);
 
     return (
         <div id={'dayNightCycly'}>
             <p>Cykl dnia i nocy</p>
-            <canvas id={'canvas1'} ref={canvasRef} width={'800'} height={'300'}/>
+            <canvas id={'canvas1'} ref={canvasRef} width={'1000'} height={'300'}/>
         </div>
     )
 }
