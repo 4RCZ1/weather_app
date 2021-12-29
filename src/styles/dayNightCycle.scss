@@ -1,0 +1,13 @@
+#dayNightCycleContainer{
+  position: relative;
+  #canvas2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  #canvas1{
+    z-index: 0;
+  }
+}
+

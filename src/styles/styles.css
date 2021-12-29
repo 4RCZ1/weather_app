@@ -8,6 +8,19 @@
   align-items: center;
 }
 
+#dayNightCycleContainer {
+  position: relative;
+}
+#dayNightCycleContainer #canvas2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+#dayNightCycleContainer #canvas1 {
+  z-index: 0;
+}
+
 html, body {
   display: flex;
   margin: 0;
