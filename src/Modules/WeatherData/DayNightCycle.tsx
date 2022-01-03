@@ -31,6 +31,7 @@ const clearCanvas = (canvas : HTMLCanvasElement | null) => {
  * @param timezone timezone offset in seconds
  */
 const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
+    const [intervals,setIntervals] = useState<number>(0);
     let mainStep = 0;
     const maxMainStep = 90;
     const dayLength = sunset - sunrise;
@@ -58,12 +59,16 @@ const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
             const ctx = canvas.getContext('2d');
             const width = canvas.width;
             const height = canvas.height;
-            const horizon = height/3*5 * dayNightProportion;
-            if(sunsetDate === sunriseDate) {
-                setSunX(width/24/60/60 * secondsSinceMidnight);
-            }
+            const horizon = height/6*4 * dayNightProportion + height/6;
+            console.log(horizon);
+            setSunX(width/24/60/60 * secondsSinceMidnight);
             if(ctx){
-                requestAnimationFrame(()=>animationStep(ctx,width,height,0,horizon))
+                const dayNightGradient = ctx.createLinearGradient(0, horizon-height/15, 0, horizon+height/20);
+                dayNightGradient.addColorStop(0, '#487aff');
+                dayNightGradient.addColorStop(1, '#111f69');
+                dayNightGradient.addColorStop(horizon/height+1/6, '#ff9116');
+                ctx.strokeStyle = dayNightGradient;
+                requestAnimationFrame(()=>animationStep(ctx,width,height,0,horizon));
             }
         }
     }
@@ -77,20 +82,19 @@ const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
             const radians = x2 / width * Math.PI * 2;
             const y2 = y + height/3 * Math.cos(radians);
             if (ctx) {
-                ctx.strokeStyle = y2 <= horizon ? '#3aaaff' : '#1f2e70';
+                // ctx.strokeStyle = y2 <= horizon ? '#3aaaff' : '#1f2e70';
                 ctx.beginPath();
                 ctx.moveTo(x2-1, horizon);
                 ctx.lineTo(x2, y2);
                 ctx.stroke();
             }
-            if(Math.floor(y2)===Math.floor(horizon)){
-                setSunX(width/24/60/60 * secondsSinceMidnight);
-            }
-            if(x2 === SunX) {
+            // @ts-ignore
+            if(x2 <= SunX) {
                 const canvas2 = document.getElementById('canvas2') as HTMLCanvasElement;
                 if(canvas2){
                     const ctx2 = canvas2.getContext('2d');
                     if(ctx2){
+                        clearCanvas(canvas2);
                         const color = y2 <= horizon ? '#ffe100' : '#525d5d';
                         ctx2.strokeStyle = color;
                         ctx2.fillStyle = color;
@@ -111,6 +115,7 @@ const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
     useEffect(() => {
         let interval : null | NodeJS.Timer = null;
         interval = setInterval(() => {
+            setIntervals(prev => prev + 1);
             if (isInViewport(document.getElementById('canvas1'))) {
                 if (interval) {
                     clearInterval(interval);
@@ -122,6 +127,11 @@ const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
                 initialAnimation();
             }
         }, 100);
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        }
     }, [sunrise,sunset,timezone]);
 
     return (
@@ -130,6 +140,7 @@ const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
             <p>wschód: {sunriseDateString}</p>
             <p>zachód: {sunsetDateString}</p>
             <p>obecnie: {currentDateString}</p>
+            <p>Długość dnia: {Math.floor(dayLength/60/60)}:{Math.floor((dayLength-Math.floor(dayLength/60/60)*60*60)/60)}:{dayLength%60}</p>
             <div id={'dayNightCycleContainer'}>
                 <canvas id={'canvas1'} width={'1000'} height={'300'}/>
                 <canvas id={'canvas2'} width={'1000'} height={'300'}/>
