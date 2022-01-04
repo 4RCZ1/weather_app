@@ -5,6 +5,7 @@ import Temperature from "./WeatherData/Temperature";
 import Type from "./WeatherData/Type";
 import DayNightCycle from "./WeatherData/DayNightCycle";
 import {RESPONSE_1} from "./WeatherData/Mocks";
+import TimeFetcher from "./TimeFetcher";
 
 
 interface Weather {
@@ -12,9 +13,7 @@ interface Weather {
     feels_like: number;
     pressure: number;
     humidity: number;
-    clouds:{
-        all: number;
-    };
+    clouds: number;
     weather: {
         description: string;
         icon: string;
@@ -23,9 +22,6 @@ interface Weather {
         speed: number;
         deg: number;
     };
-    sunrise:number;
-    sunset:number;
-    timezone: number;
 }
 interface Location {
     name: string;
@@ -48,20 +44,15 @@ const correctCoordinates = (coordinates: number): number => {
 const WeatherFetcher = ({coordinates}:Coordinates) => {
     const [weather, setWeather] = React.useState<Weather | null>(null);
     const [location, setLocation] = React.useState<Location | null>(null);
-    const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
+    //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
 
-    const coords : string = coordinates ? coordinates[1] + ',' + coordinates[0] : "";
+    const coords : string = correctCoordinates(coordinates[1])+','+correctCoordinates(coordinates[0]);
     const options = {
         method: 'GET',
-        url: 'https://community-open-weather-map.p.rapidapi.com/weather',
-        params: {
-            lat: correctCoordinates(coordinates[1])+'',
-            lon: correctCoordinates(coordinates[0])+'',
-            lang: 'null',
-            units: 'metric'
-        },
+        url: 'https://weatherapi-com.p.rapidapi.com/current.json',
+        params: {q: coords},
         headers: {
-            'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
+            'x-rapidapi-host': 'weatherapi-com.p.rapidapi.com',
             'x-rapidapi-key': '0bedbfb065msh4d74772935f4250p1f5b5cjsn0208d1ba7eb7'
         }
     };
@@ -71,25 +62,32 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
             // @ts-ignore
             axios(options).then(response => {
                 console.log(response.data);
-                setLastRequestTimestamp(Date.now());
-                setWeather({
-                    temp: response.data.main.temp,
-                    feels_like: response.data.main.feels_like,
-                    humidity: response.data.main.humidity,
-                    pressure: response.data.main.pressure,
-                    clouds: response.data.clouds,
-                    weather: response.data.weather[0],
-                    wind: response.data.wind,
-                    sunrise: response.data.sys.sunrise,
-                    sunset: response.data.sys.sunset,
-                    timezone: response.data.timezone
-                });
-                setLocation({
-                    country: response.data.sys.country,
-                    name: response.data.name,
-                    lat: response.data.coord.lat,
-                    lon: response.data.coord.lon
-                });
+                //setLastRequestTimestamp(Date.now());
+                setWeather(
+                    {
+                        temp: response.data.current.temp_c,
+                        feels_like: response.data.current.feelslike_c,
+                        pressure: response.data.current.pressure_mb,
+                        humidity: response.data.current.humidity,
+                        clouds: response.data.current.cloud,
+                        weather: {
+                            description: response.data.current.condition.text,
+                            icon: response.data.current.condition.icon,
+                        },
+                        wind: {
+                            speed: response.data.current.wind_kph,
+                            deg: response.data.current.wind_degree,
+                        },
+                    }
+                );
+                setLocation(
+                    {
+                        name: response.data.location.name,
+                        country: response.data.location.country,
+                        lat: response.data.location.lat,
+                        lon: response.data.location.lon,
+                    }
+                );
             }).catch(error => {
                 console.log(error);
             });
@@ -128,9 +126,9 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
                     <Temperature temp={weather.temp} feels_like={weather.feels_like} />
                     <h3>Wilgotność: {weather.humidity}%</h3>
                     <h3>Ciśnienie: {weather.pressure} hPa</h3>
-                    <h3>Zachmurzenie: {weather.clouds.all}%</h3>
+                    <h3>Zachmurzenie: {weather.clouds}%</h3>
                     <Type type={weather.weather}/>
-                    <DayNightCycle sunset={weather.sunset} sunrise={weather.sunrise} timezone={weather.timezone}/>
+                    <TimeFetcher coords={coords}/>
                 </div>
             );
         } else {

@@ -12,7 +12,7 @@ const Type = ({type}:WeatherType) => {
     return (
         <div id="type">
             <h3>{type.description}</h3>
-            <img src={'http://openweathermap.org/img/wn/' + type.icon + '@2x.png'} alt={type.description}/>
+            <img src={'https:' + type.icon} alt={type.description}/>
         </div>
     );
 };
