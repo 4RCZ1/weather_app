@@ -92,29 +92,6 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
                 console.log(error);
             });
        // }
-
-        //     setWeather(
-        //         {
-        //             temp: RESPONSE_1.main.temp,
-        //             feels_like: RESPONSE_1.main.feels_like,
-        //             humidity: RESPONSE_1.main.humidity,
-        //             pressure: RESPONSE_1.main.pressure,
-        //             clouds: RESPONSE_1.clouds,
-        //             weather: RESPONSE_1.weather[0],
-        //             wind: RESPONSE_1.wind,
-        //             sunrise: RESPONSE_1.sys.sunrise,
-        //             sunset: RESPONSE_1.sys.sunset,
-        //             timezone: RESPONSE_1.timezone
-        //         }
-        //     );
-        //     setLocation(
-        //         {
-        //             country: RESPONSE_1.sys.country,
-        //             name: RESPONSE_1.name,
-        //             lat: RESPONSE_1.coord.lat,
-        //             lon: RESPONSE_1.coord.lon
-        //         }
-        //     );
     }, [coordinates]);
 
     const weatherOutput = () => {

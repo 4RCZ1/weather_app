@@ -3,12 +3,18 @@ import axios from 'axios';
 import DayNightCycle from "./WeatherData/DayNightCycle";
 
 interface Time{
-    moon_illumination: string;
-    moon_phase: string;
-    moonrise: string;
-    moonset: string;
-    sunrise: string;
-    sunset: string;
+    moon_illumination: number;
+    moon_phase: number;
+    moonrise: number;
+    moonset: number;
+    sunrise: number;
+    sunset: number;
+    localtime_epoch:number;
+    timeDifference:string;
+}
+
+const convertTime = (time: number) => {
+    return Math.floor(Date.parse(new Date().toDateString() + ' ' + time)/1000);
 }
 
 const TimeFetcher = ({coords}:{coords:string}) => {
@@ -30,12 +36,14 @@ const TimeFetcher = ({coords}:{coords:string}) => {
             console.log(res.data);
             timeSetter(
                 {
-                    moon_illumination: res.data.astronomy.astro.moon_illumination,
-                    moon_phase: res.data.astronomy.astro.moon_phase,
-                    moonrise: res.data.astronomy.astro.moonrise,
-                    moonset: res.data.astronomy.astro.moonset,
-                    sunrise: res.data.astronomy.astro.sunrise,
-                    sunset: res.data.astronomy.astro.sunset
+                    moon_illumination: convertTime(res.data.astronomy.astro.moon_illumination),
+                    moon_phase: convertTime(res.data.astronomy.astro.moon_phase),
+                    moonrise: convertTime(res.data.astronomy.astro.moonrise),
+                    moonset: convertTime(res.data.astronomy.astro.moonset),
+                    sunrise: convertTime(res.data.astronomy.astro.sunrise),
+                    sunset: convertTime(res.data.astronomy.astro.sunset),
+                    localtime_epoch: res.data.location.localtime_epoch,
+                    timeDifference: res.data.location.localtime
                 }
             )
         }).catch(err => {
@@ -43,8 +51,10 @@ const TimeFetcher = ({coords}:{coords:string}) => {
         });
     }, [coords]);
 
+    if(time === null) return <div>Loading...</div>;
+    const timeDifference = Math.floor(Date.parse(time.timeDifference)/1000) - time.localtime_epoch;
     return(
-        <DayNightCycle sunrise={0} sunset={0} timezone={0}/>
+        <DayNightCycle sunrise={time.sunrise} sunset={time.sunset} localtime_epoch={Math.floor(Date.parse(time.timeDifference)/1000)} timeDifference={timeDifference}/>
     )
 }
 

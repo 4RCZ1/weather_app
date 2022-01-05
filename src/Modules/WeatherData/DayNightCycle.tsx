@@ -2,8 +2,9 @@ import React, {createRef, useEffect, useState} from 'react';
 
 interface Cycle {
     sunrise: number,
-    sunset: number
-    timezone: number;
+    sunset: number,
+    localtime_epoch: number,
+    timeDifference: number;
 }
 
 function isInViewport(element : HTMLElement | null) : boolean {
@@ -30,16 +31,16 @@ const clearCanvas = (canvas : HTMLCanvasElement | null) => {
  * @param sunset timestamp of sunset in seconds
  * @param timezone timezone offset in seconds
  */
-const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
+const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle) => {
     const [intervals,setIntervals] = useState<number>(0);
     let mainStep = 0;
     const maxMainStep = 90;
     const dayLength = sunset - sunrise;
     const dayNightProportion = dayLength / (24*60*60);
-    const currentDate = Math.floor(new Date(new Date().getTime() + timezone * 1000 + new Date().getTimezoneOffset() * 60 * 1000).getTime());
-    const sunsetDate = Math.floor(new Date(sunset * 1000 + timezone * 1000 + 1000 * 60 * new Date().getTimezoneOffset()).getTime());
-    const sunriseDate = Math.floor(new Date(sunrise * 1000 + timezone * 1000 + 1000 * 60 * new Date().getTimezoneOffset()).getTime());
-    const midnightDate = Math.floor(new Date(new Date().getTime() + timezone * 1000 + new Date().getTimezoneOffset() * 60 * 1000).setHours(0, 0, 0, 0));
+    const currentDate = localtime_epoch*1000;
+    const sunsetDate = sunset*1000;
+    const sunriseDate = sunrise*1000;
+    const midnightDate = Math.floor(new Date(new Date().getTime() + timeDifference * 1000).setHours(0, 0, 0, 0));
     const secondsSinceMidnight = (currentDate - midnightDate) / 1000;
 
     const sunriseDateString = new Date(sunriseDate).toLocaleTimeString();
@@ -132,7 +133,7 @@ const DayNightCycle = ({sunrise, sunset, timezone}: Cycle) => {
                 clearInterval(interval);
             }
         }
-    }, [sunrise,sunset,timezone]);
+    }, [sunrise,sunset]);
 
     return (
         <div id={'dayNightCycle'}>
