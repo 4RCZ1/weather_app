@@ -21,6 +21,20 @@
   z-index: 0;
 }
 
+#compass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+}
+#compass #arrow {
+  position: absolute;
+  background-size: cover;
+  z-index: 1;
+}
+
 html, body {
   display: flex;
   margin: 0;

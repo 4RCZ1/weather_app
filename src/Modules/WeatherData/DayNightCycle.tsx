@@ -43,9 +43,9 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
     const midnightDate = Math.floor(new Date(new Date().getTime() + timeDifference * 1000).setHours(0, 0, 0, 0));
     const secondsSinceMidnight = (currentDate - midnightDate) / 1000;
 
-    const sunriseDateString = new Date(sunriseDate).toLocaleTimeString();
-    const sunsetDateString = new Date(sunsetDate).toLocaleTimeString();
-    const currentDateString = new Date(currentDate).toLocaleTimeString();
+    const sunriseDateString = new Date(sunriseDate).toLocaleTimeString().slice(0, -3);
+    const sunsetDateString = new Date(sunsetDate).toLocaleTimeString().slice(0, -3);
+    const currentDateString = new Date(currentDate).toLocaleTimeString().slice(0, -3);
 
     let SunX : number|null = null;
     const setSunX = (val:number) => {
@@ -141,7 +141,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
             <p>wschód: {sunriseDateString}</p>
             <p>zachód: {sunsetDateString}</p>
             <p>obecnie: {currentDateString}</p>
-            <p>Długość dnia: {Math.floor(dayLength/60/60)}:{Math.floor((dayLength-Math.floor(dayLength/60/60)*60*60)/60)}:{dayLength%60}</p>
+            <p>Długość dnia: {Math.floor(dayLength/60/60)}:{Math.floor((dayLength-Math.floor(dayLength/60/60)*60*60)/60)}</p>
             <div id={'dayNightCycleContainer'}>
                 <canvas id={'canvas1'} width={'1000'} height={'300'}/>
                 <canvas id={'canvas2'} width={'1000'} height={'300'}/>

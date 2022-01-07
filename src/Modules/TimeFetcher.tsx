@@ -10,7 +10,7 @@ interface Time{
     sunrise: number;
     sunset: number;
     localtime_epoch:number;
-    timeDifference:string;
+    localtime:string;
 }
 
 const convertTime = (time: number) => {
@@ -43,7 +43,7 @@ const TimeFetcher = ({coords}:{coords:string}) => {
                     sunrise: convertTime(res.data.astronomy.astro.sunrise),
                     sunset: convertTime(res.data.astronomy.astro.sunset),
                     localtime_epoch: res.data.location.localtime_epoch,
-                    timeDifference: res.data.location.localtime
+                    localtime: res.data.location.localtime
                 }
             )
         }).catch(err => {
@@ -52,9 +52,9 @@ const TimeFetcher = ({coords}:{coords:string}) => {
     }, [coords]);
 
     if(time === null) return <div>Loading...</div>;
-    const timeDifference = Math.floor(Date.parse(time.timeDifference)/1000) - time.localtime_epoch;
+    const timeDifference = Math.floor(Date.parse(time.localtime)/1000) - time.localtime_epoch;
     return(
-        <DayNightCycle sunrise={time.sunrise} sunset={time.sunset} localtime_epoch={Math.floor(Date.parse(time.timeDifference)/1000)} timeDifference={timeDifference}/>
+        <DayNightCycle sunrise={time.sunrise} sunset={time.sunset} localtime_epoch={Math.floor(Date.parse(time.localtime)/1000)} timeDifference={timeDifference}/>
     )
 }
 

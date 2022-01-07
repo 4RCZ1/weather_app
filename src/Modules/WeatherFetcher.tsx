@@ -3,9 +3,8 @@ import axios from 'axios';
 
 import Temperature from "./WeatherData/Temperature";
 import Type from "./WeatherData/Type";
-import DayNightCycle from "./WeatherData/DayNightCycle";
-import {RESPONSE_1} from "./WeatherData/Mocks";
 import TimeFetcher from "./TimeFetcher";
+import Wind from "./WeatherData/Wind";
 
 
 interface Weather {
@@ -21,6 +20,7 @@ interface Weather {
     wind: {
         speed: number;
         deg: number;
+        gust: number;
     };
 }
 interface Location {
@@ -77,6 +77,7 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
                         wind: {
                             speed: response.data.current.wind_kph,
                             deg: response.data.current.wind_degree,
+                            gust: response.data.current.gust_kph,
                         },
                     }
                 );
@@ -104,6 +105,7 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
                     <h3>Wilgotność: {weather.humidity}%</h3>
                     <h3>Ciśnienie: {weather.pressure} hPa</h3>
                     <h3>Zachmurzenie: {weather.clouds}%</h3>
+                    <Wind speed={weather.wind.speed} deg={weather.wind.deg} gust={weather.wind.gust}/>
                     <Type type={weather.weather}/>
                     <TimeFetcher coords={coords}/>
                 </div>
