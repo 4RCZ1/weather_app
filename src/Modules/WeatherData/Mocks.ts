@@ -1,24 +1,60 @@
-export const RESPONSE_1 = {
-    "coord": {"lon": 14.8139, "lat": 53.3032},
-    "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}],
-    "base": "stations",
-    "main": {
-        "temp": 1.19,
-        "feels_like": 1.19,
-        "temp_min": 0.14,
-        "temp_max": 1.57,
-        "pressure": 1007,
-        "humidity": 90,
-        "sea_level": 1007,
-        "grnd_level": 1005
+export const ASTRONOMY = {
+    "location": {
+        "name": "Kolbacz",
+        "region": "",
+        "country": "Poland",
+        "lat": 53.3,
+        "lon": 14.81,
+        "tz_id": "Europe/Warsaw",
+        "localtime_epoch": 1641590350,
+        "localtime": "2022-01-07 22:19"
     },
-    "visibility": 872,
-    "wind": {"speed": 1.25, "deg": 232, "gust": 1.76},
-    "clouds": {"all": 100},
-    "dt": 1640795397,
-    "sys": {"type": 2, "id": 2037070, "country": "PL", "sunrise": 1640762156, "sunset": 1640789364},
-    "timezone": 3600,
-    "id": 3084890,
-    "name": "Stare Czarnowo",
-    "cod": 200
+    "astronomy": {
+        "astro": {
+            "sunrise": "08:14 AM",
+            "sunset": "04:01 PM",
+            "moonrise": "11:10 AM",
+            "moonset": "10:08 PM",
+            "moon_phase": "Waxing Crescent",
+            "moon_illumination": "30"
+        }
+    }
+}
+
+export const WEATHER = {
+    "location": {
+        "name": "Kolbacz",
+        "region": "",
+        "country": "Poland",
+        "lat": 53.3,
+        "lon": 14.81,
+        "tz_id": "Europe/Warsaw",
+        "localtime_epoch": 1641590350,
+        "localtime": "2022-01-07 22:19"
+    },
+    "current": {
+        "last_updated_epoch": 1641590100,
+        "last_updated": "2022-01-07 22:15",
+        "temp_c": 1.0,
+        "temp_f": 33.8,
+        "is_day": 0,
+        "condition": {"text": "Overcast", "icon": "//cdn.weatherapi.com/weather/64x64/night/122.png", "code": 1009},
+        "wind_mph": 3.8,
+        "wind_kph": 6.1,
+        "wind_degree": 190,
+        "wind_dir": "S",
+        "pressure_mb": 1010.0,
+        "pressure_in": 29.83,
+        "precip_mm": 0.1,
+        "precip_in": 0.0,
+        "humidity": 100,
+        "cloud": 100,
+        "feelslike_c": -3.2,
+        "feelslike_f": 26.2,
+        "vis_km": 10.0,
+        "vis_miles": 6.0,
+        "uv": 1.0,
+        "gust_mph": 13.9,
+        "gust_kph": 22.3
+    }
 }

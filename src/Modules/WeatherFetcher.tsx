@@ -5,6 +5,7 @@ import Temperature from "./WeatherData/Temperature";
 import Type from "./WeatherData/Type";
 import TimeFetcher from "./TimeFetcher";
 import Wind from "./WeatherData/Wind";
+import {WEATHER} from "./WeatherData/Mocks";
 
 
 interface Weather {
@@ -60,38 +61,38 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
     useEffect(() => {
         //if(Date.now() - lastRequestTimestamp > 1000*30) {
             // @ts-ignore
-            axios(options).then(response => {
-                console.log(response.data);
-                //setLastRequestTimestamp(Date.now());
+            //axios(options).then(response => {
+                //const data = response.data;
+                const data = WEATHER;
                 setWeather(
                     {
-                        temp: response.data.current.temp_c,
-                        feels_like: response.data.current.feelslike_c,
-                        pressure: response.data.current.pressure_mb,
-                        humidity: response.data.current.humidity,
-                        clouds: response.data.current.cloud,
+                        temp: data.current.temp_c,
+                        feels_like: data.current.feelslike_c,
+                        pressure: data.current.pressure_mb,
+                        humidity: data.current.humidity,
+                        clouds: data.current.cloud,
                         weather: {
-                            description: response.data.current.condition.text,
-                            icon: response.data.current.condition.icon,
+                            description: data.current.condition.text,
+                            icon: data.current.condition.icon,
                         },
                         wind: {
-                            speed: response.data.current.wind_kph,
-                            deg: response.data.current.wind_degree,
-                            gust: response.data.current.gust_kph,
+                            speed: data.current.wind_kph,
+                            deg: data.current.wind_degree,
+                            gust: data.current.gust_kph,
                         },
                     }
                 );
                 setLocation(
                     {
-                        name: response.data.location.name,
-                        country: response.data.location.country,
-                        lat: response.data.location.lat,
-                        lon: response.data.location.lon,
+                        name: data.location.name,
+                        country: data.location.country,
+                        lat: data.location.lat,
+                        lon: data.location.lon,
                     }
                 );
-            }).catch(error => {
-                console.log(error);
-            });
+            // }).catch(error => {
+            //     console.log(error);
+            // });
        // }
     }, [coordinates]);
 

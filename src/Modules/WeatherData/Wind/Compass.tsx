@@ -1,4 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { motion } from "framer-motion"
+
+const spring = {
+    type: "spring",
+    stiffness: 600,
+    damping: 100,
+    mass:40
+};
 
 const Compass = ({deg}:{deg: number}) => {
     const rotate = `rotate(${deg}deg)`;
@@ -13,13 +21,22 @@ const Compass = ({deg}:{deg: number}) => {
                 <path d="M381.6 264.8C388.89 264.8 394.8 258.89 394.8 251.6C394.8 244.31 388.89 238.4 381.6 238.4C374.31 238.4 368.4 244.31 368.4 251.6C368.4 258.89 374.31 264.8 381.6 264.8Z" fill="#2C9984"/>
                 <path d="M120.4 264.8C127.69 264.8 133.6 258.89 133.6 251.6C133.6 244.31 127.69 238.4 120.4 238.4C113.11 238.4 107.2 244.31 107.2 251.6C107.2 258.89 113.11 264.8 120.4 264.8Z" fill="#2C9984"/>
             </svg>
-            <div id="arrow" style={{transform: rotate}}>
+            <motion.div
+                id="arrow"
+                transition={spring}
+                initial="hidden"
+                whileInView="visible"
+                variants={{
+                    visible: {rotate:deg},
+                    hidden: {rotate:-45}
+                }}
+            >
                 <svg width="40" height="40" viewBox="0 0 176 176" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M175.2 0.800003L61.2 61.2L114.8 114.8L175.2 0.800003Z" fill="#FF7058"/>
                     <path d="M0.800003 175.2L114.8 114.8L61.2 61.2L0.800003 175.2Z" fill="#324A5E"/>
                     <path d="M88 109.2C99.7084 109.2 109.2 99.7084 109.2 88C109.2 76.2916 99.7084 66.8 88 66.8C76.2916 66.8 66.8 76.2916 66.8 88C66.8 99.7084 76.2916 109.2 88 109.2Z" fill="#FFD05B"/>
                 </svg>
-            </div>
+            </motion.div>
         </div>
     );
 };

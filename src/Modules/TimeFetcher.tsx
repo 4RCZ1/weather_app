@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
 import DayNightCycle from "./WeatherData/DayNightCycle";
+import {ASTRONOMY} from "./WeatherData/Mocks";
 
 interface Time{
     moon_illumination: number;
@@ -13,7 +14,7 @@ interface Time{
     localtime:string;
 }
 
-const convertTime = (time: number) => {
+const convertTime = (time: string) => {
     return Math.floor(Date.parse(new Date().toDateString() + ' ' + time)/1000);
 }
 
@@ -32,23 +33,24 @@ const TimeFetcher = ({coords}:{coords:string}) => {
 
     useEffect (() => {
         // @ts-ignore
-        axios.request(options).then(res => {
-            console.log(res.data);
+        //axios.request(options).then(res => {
+            //const data = res.data;
+            const data = ASTRONOMY;
             timeSetter(
                 {
-                    moon_illumination: convertTime(res.data.astronomy.astro.moon_illumination),
-                    moon_phase: convertTime(res.data.astronomy.astro.moon_phase),
-                    moonrise: convertTime(res.data.astronomy.astro.moonrise),
-                    moonset: convertTime(res.data.astronomy.astro.moonset),
-                    sunrise: convertTime(res.data.astronomy.astro.sunrise),
-                    sunset: convertTime(res.data.astronomy.astro.sunset),
-                    localtime_epoch: res.data.location.localtime_epoch,
-                    localtime: res.data.location.localtime
+                    moon_illumination: convertTime(data.astronomy.astro.moon_illumination),
+                    moon_phase: convertTime(data.astronomy.astro.moon_phase),
+                    moonrise: convertTime(data.astronomy.astro.moonrise),
+                    moonset: convertTime(data.astronomy.astro.moonset),
+                    sunrise: convertTime(data.astronomy.astro.sunrise),
+                    sunset: convertTime(data.astronomy.astro.sunset),
+                    localtime_epoch: data.location.localtime_epoch,
+                    localtime: data.location.localtime
                 }
             )
-        }).catch(err => {
-            console.log(err);
-        });
+        //}).catch(err => {
+        //    console.log(err);
+        //});
     }, [coords]);
 
     if(time === null) return <div>Loading...</div>;
