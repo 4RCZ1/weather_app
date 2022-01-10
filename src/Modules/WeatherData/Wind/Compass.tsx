@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import { motion } from "framer-motion"
+import Arrow from "./Arrow";
 
 const spring = {
     type: "spring",
-    stiffness: 600,
-    damping: 100,
-    mass:40
+    stiffness: 700,
+    damping: 90,
+    mass:20
 };
 
 const Compass = ({deg}:{deg: number}) => {
@@ -31,11 +32,7 @@ const Compass = ({deg}:{deg: number}) => {
                     hidden: {rotate:-45}
                 }}
             >
-                <svg width="40" height="40" viewBox="0 0 176 176" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M175.2 0.800003L61.2 61.2L114.8 114.8L175.2 0.800003Z" fill="#FF7058"/>
-                    <path d="M0.800003 175.2L114.8 114.8L61.2 61.2L0.800003 175.2Z" fill="#324A5E"/>
-                    <path d="M88 109.2C99.7084 109.2 109.2 99.7084 109.2 88C109.2 76.2916 99.7084 66.8 88 66.8C76.2916 66.8 66.8 76.2916 66.8 88C66.8 99.7084 76.2916 109.2 88 109.2Z" fill="#FFD05B"/>
-                </svg>
+                <Arrow/>
             </motion.div>
         </div>
     );
