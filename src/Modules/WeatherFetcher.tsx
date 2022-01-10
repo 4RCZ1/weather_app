@@ -47,7 +47,7 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
     const [location, setLocation] = React.useState<Location | null>(null);
     //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
 
-    const coords : string = correctCoordinates(coordinates[1])+','+correctCoordinates(coordinates[0]);
+    const coords: string = correctCoordinates(coordinates[1]) + ',' + correctCoordinates(coordinates[0]);
     const options = {
         method: 'GET',
         url: 'https://weatherapi-com.p.rapidapi.com/current.json',
@@ -58,42 +58,49 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
         }
     };
 
+    const isMock = async (mock: boolean) => {
+        if (mock) {
+            return WEATHER;
+        }
+        let response = WEATHER;
+        // @ts-ignore
+        await axios.request(options).then(res => {
+            response = res.data;
+        }).catch(err => {
+            console.log(err);
+        });
+        return response;
+    };
+
     useEffect(() => {
-        //if(Date.now() - lastRequestTimestamp > 1000*30) {
-            // @ts-ignore
-            //axios(options).then(response => {
-                //const data = response.data;
-                const data = WEATHER;
-                setWeather(
-                    {
-                        temp: data.current.temp_c,
-                        feels_like: data.current.feelslike_c,
-                        pressure: data.current.pressure_mb,
-                        humidity: data.current.humidity,
-                        clouds: data.current.cloud,
-                        weather: {
-                            description: data.current.condition.text,
-                            icon: data.current.condition.icon,
-                        },
-                        wind: {
-                            speed: data.current.wind_kph,
-                            deg: data.current.wind_degree,
-                            gust: data.current.gust_kph,
-                        },
-                    }
-                );
-                setLocation(
-                    {
-                        name: data.location.name,
-                        country: data.location.country,
-                        lat: data.location.lat,
-                        lon: data.location.lon,
-                    }
-                );
-            // }).catch(error => {
-            //     console.log(error);
-            // });
-       // }
+        isMock(false).then(data=>{
+            setWeather(
+                {
+                    temp: data.current.temp_c,
+                    feels_like: data.current.feelslike_c,
+                    pressure: data.current.pressure_mb,
+                    humidity: data.current.humidity,
+                    clouds: data.current.cloud,
+                    weather: {
+                        description: data.current.condition.text,
+                        icon: data.current.condition.icon,
+                    },
+                    wind: {
+                        speed: data.current.wind_kph,
+                        deg: data.current.wind_degree,
+                        gust: data.current.gust_kph,
+                    },
+                }
+            );
+            setLocation(
+                {
+                    name: data.location.name,
+                    country: data.location.country,
+                    lat: data.location.lat,
+                    lon: data.location.lon,
+                }
+            );
+        });
     }, [coordinates]);
 
     const weatherOutput = () => {

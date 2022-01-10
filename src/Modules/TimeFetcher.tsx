@@ -31,11 +31,22 @@ const TimeFetcher = ({coords}:{coords:string}) => {
         }
     };
 
-    useEffect (() => {
+    const isMock = async (mock: boolean) => {
+        if (mock) {
+            return ASTRONOMY;
+        }
+        let response = ASTRONOMY;
         // @ts-ignore
-        //axios.request(options).then(res => {
-            //const data = res.data;
-            const data = ASTRONOMY;
+        await axios.request(options).then(res => {
+            response = res.data;
+        }).catch(err => {
+            console.log(err);
+        });
+        return response;
+    };
+
+    useEffect (() => {
+        isMock(false).then(data=>{
             timeSetter(
                 {
                     moon_illumination: convertTime(data.astronomy.astro.moon_illumination),
@@ -48,9 +59,7 @@ const TimeFetcher = ({coords}:{coords:string}) => {
                     localtime: data.location.localtime
                 }
             )
-        //}).catch(err => {
-        //    console.log(err);
-        //});
+        })
     }, [coords]);
 
     if(time === null) return <div>Loading...</div>;
