@@ -6,6 +6,7 @@ import Type from "./WeatherData/Type";
 import TimeFetcher from "./TimeFetcher";
 import Wind from "./WeatherData/Wind";
 import {WEATHER} from "./WeatherData/Mocks";
+import Details from "./WeatherData/Details";
 
 
 interface Weather {
@@ -110,11 +111,9 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
                     <h1>Najbliższy punkt pomiaru: {location.name}</h1>
                     <h2>Kraj: {location.country}</h2>
                     <Temperature temp={weather.temp} feels_like={weather.feels_like} />
-                    <h3>Wilgotność: {weather.humidity}%</h3>
-                    <h3>Ciśnienie: {weather.pressure} hPa</h3>
-                    <h3>Zachmurzenie: {weather.clouds}%</h3>
                     <Wind speed={weather.wind.speed} deg={weather.wind.deg} gust={weather.wind.gust}/>
                     <Type type={weather.weather}/>
+                    <Details humidity={weather.humidity} pressure={weather.pressure} clouds={weather.clouds}/>
                     <TimeFetcher coords={coords}/>
                 </div>
             );

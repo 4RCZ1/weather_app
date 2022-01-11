@@ -1,10 +1,19 @@
 import React from 'react';
 
-const Details = () => {
+interface details {
+    humidity: number;
+    pressure: number;
+    clouds: number;
+}
+
+const Details = ({humidity,pressure,clouds}:details) => {
   return (
-    <div id="details">
-      <h1>Details</h1>
-    </div>
+      <div id="details" className="mainBoxes">
+            <h3>Details</h3>
+            <p>Humidity: {humidity}%</p>
+            <p>Pressure: {pressure} hPa</p>
+            <p>Clouds: {clouds}%</p>
+      </div>
   );
 };
 export default Details;

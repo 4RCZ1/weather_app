@@ -8,7 +8,7 @@ interface temp {
 
 const Temperature = ({ temp,feels_like,unit }:temp) => {
   return (
-    <div className="temp">
+    <div id="temp"  className="mainBoxes">
       <div className="temp__value">
           <span>Temperatura: </span>
           <span>{temp}</span>

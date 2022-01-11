@@ -1,0 +1,43 @@
+@use './type';
+@use './dayNightCycle';
+@use './compass';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html, body{
+  display:flex;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #777777;
+}
+#app{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#map{
+  display:flex;
+  width:97vw;
+  margin:0 1.1vw;
+  height:60vh;
+  canvas{
+    border-radius:10px !important;
+  }
+}
+#weather{
+  display:flex;
+  flex-direction:column;
+  width:70vw;
+}
+.mainBoxes{
+  background: rgba(255, 255, 255, 0.5);
+  width:100%;
+  padding:20px;
+  border-radius:20px;
+  margin:5px;
+}

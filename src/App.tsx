@@ -12,7 +12,7 @@ function App() {
         lowerModule = <WeatherFetcher coordinates={coordinates}/>
     )
     return (
-        <div className="App">
+        <div id="app">
             <Coordinates setter={setCoordinates}/>
             {lowerModule}
         </div>

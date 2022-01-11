@@ -10,7 +10,7 @@ interface WeatherType {
 
 const Type = ({type}:WeatherType) => {
     return (
-        <div id="type">
+        <div id="type" className="mainBoxes">
             <h3>{type.description}</h3>
             <img src={'https:' + type.icon} alt={type.description}/>
         </div>

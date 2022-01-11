@@ -136,7 +136,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
     }, [sunrise,sunset]);
 
     return (
-        <div id={'dayNightCycle'}>
+        <div id={'dayNightCycle'} className="mainBoxes">
             <p>Cykl dnia i nocy</p>
             <p>wschód: {sunriseDateString}</p>
             <p>zachód: {sunsetDateString}</p>
