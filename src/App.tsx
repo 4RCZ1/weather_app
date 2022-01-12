@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import Coordinates from "./Modules/Coordinates";
 import WeatherFetcher from "./Modules/WeatherFetcher";
+import Header from "./Modules/Header";
+import Footer from "./Modules/Footer";
 
 function App() {
     const [coordinates, setCoordinates] = useState<number[] | null>(null);
@@ -13,8 +15,10 @@ function App() {
     )
     return (
         <div id="app">
+            <Header/>
             <Coordinates setter={setCoordinates}/>
             {lowerModule}
+            <Footer/>
         </div>
   );
 }
