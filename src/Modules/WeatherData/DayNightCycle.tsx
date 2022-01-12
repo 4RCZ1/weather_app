@@ -47,6 +47,8 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
     const sunsetDateString = new Date(sunsetDate).toLocaleTimeString().slice(0, -3);
     const currentDateString = new Date(currentDate).toLocaleTimeString().slice(0, -3);
 
+    const canvasWidth = (window.innerWidth-60)*0.8;
+
     let SunX : number|null = null;
     const setSunX = (val:number) => {
         if(SunX === null) {
@@ -137,14 +139,14 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
 
     return (
         <div id={'dayNightCycle'} className="mainBoxes">
-            <p>Cykl dnia i nocy</p>
-            <p>wschód: {sunriseDateString}</p>
-            <p>zachód: {sunsetDateString}</p>
-            <p>obecnie: {currentDateString}</p>
-            <p>Długość dnia: {Math.floor(dayLength/60/60)}:{Math.floor((dayLength-Math.floor(dayLength/60/60)*60*60)/60)}</p>
+            <p>Day/night cycle</p>
+            <p>sunrise: {sunriseDateString}</p>
+            <p>sunset: {sunsetDateString}</p>
+            <p>current time: {currentDateString}</p>
+            <p>Day length: {Math.floor(dayLength/60/60)}:{Math.floor((dayLength-Math.floor(dayLength/60/60)*60*60)/60)}</p>
             <div id={'dayNightCycleContainer'}>
-                <canvas id={'canvas1'} width={'1000'} height={'300'}/>
-                <canvas id={'canvas2'} width={'1000'} height={'300'}/>
+                <canvas id={'canvas1'} width={canvasWidth} height={canvasWidth*0.3}/>
+                <canvas id={'canvas2'} width={canvasWidth} height={canvasWidth*0.3}/>
             </div>
         </div>
     )
