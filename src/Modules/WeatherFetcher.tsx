@@ -108,8 +108,10 @@ const WeatherFetcher = ({coordinates}:Coordinates) => {
         if (weather && location && coordinates) {
             return (
                 <div id={"weather"}>
-                    <h1>Najbliższy punkt pomiaru: {location.name}</h1>
-                    <h2>Kraj: {location.country}</h2>
+                    <div className="mainBoxes">
+                        <h1>Najbliższy punkt pomiaru: {location.name}</h1>
+                        <h2>Kraj: {location.country}</h2>
+                    </div>
                     <Temperature temp={weather.temp} feels_like={weather.feels_like} />
                     <Wind speed={weather.wind.speed} deg={weather.wind.deg} gust={weather.wind.gust}/>
                     <Type type={weather.weather}/>

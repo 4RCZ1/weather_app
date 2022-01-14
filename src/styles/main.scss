@@ -1,16 +1,23 @@
 @use './type';
 @use './dayNightCycle';
 @use './compass';
+@use './variables';
+@use './header';
+@use './footer';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 html, body{
+  width:100%;
   display:flex;
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   color: #333;
-  background-color: #315f80;
+  background-color: variables.$basicBlue;
+}
+#root{
+  width:100%;
 }
 #app{
   width: 100%;
@@ -20,17 +27,11 @@ html, body{
   justify-content: center;
   align-items: center;
 }
-header{
-  height:100px;
-  background:black;
-  color:white;
-  width:100%;
-}
 #map{
   display:flex;
-  width:97vw;
-  margin:0 1.1vw;
+  width:90vw;
   height:60vh;
+  margin:10px;
   canvas{
     border-radius:10px !important;
   }
@@ -41,15 +42,9 @@ header{
   width:80vw;
 }
 .mainBoxes{
-  background: rgba(255, 255, 255, 0.5);
+  background: variables.$basicWhite;
   width:calc(100% - 50px);
   padding:20px;
   border-radius:20px;
   margin:5px;
-}
-footer{
-  height:100px;
-  background:black;
-  color:white;
-  width:100%;
 }

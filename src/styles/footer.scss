@@ -1,0 +1,31 @@
+@use './variables';
+
+footer{
+  margin-top:20px;
+  background: variables.$basicBlack;
+  color:white;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  #wrapper{
+    width:80%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-direction:column;
+    margin-bottom:10px;
+  }
+  a{
+    color:white;
+    text-decoration:none;
+  }
+  li{
+    margin-bottom:10px;
+  }
+  p{
+    margin:0;
+    padding:0;
+    color: #afafaf;
+  }
+}

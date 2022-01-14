@@ -42,7 +42,7 @@ html, body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #333;
-  background-color: #777777;
+  background-color: #315f80;
 }
 
 #app {
@@ -52,6 +52,13 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+header {
+  height: 100px;
+  background: black;
+  color: white;
+  width: 100%;
 }
 
 #map {
@@ -67,15 +74,22 @@ html, body {
 #weather {
   display: flex;
   flex-direction: column;
-  width: 70vw;
+  width: 80vw;
 }
 
 .mainBoxes {
   background: rgba(255, 255, 255, 0.5);
-  width: 100%;
+  width: calc(100% - 50px);
   padding: 20px;
   border-radius: 20px;
   margin: 5px;
+}
+
+footer {
+  height: 100px;
+  background: black;
+  color: white;
+  width: 100%;
 }
 
 /*# sourceMappingURL=main.css.map */
