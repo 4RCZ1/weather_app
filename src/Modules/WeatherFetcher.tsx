@@ -32,8 +32,9 @@ interface Location {
     lon: number;
 }
 
-interface Coordinates {
+interface weatherFetcherProps {
     coordinates: number[];
+    unit:string;
 }
 
 const correctCoordinates = (coordinates: number): number => {
@@ -43,7 +44,7 @@ const correctCoordinates = (coordinates: number): number => {
     return coordinates;
 }
 
-const WeatherFetcher = ({coordinates}:Coordinates) => {
+const WeatherFetcher = ({coordinates,unit}:weatherFetcherProps) => {
     const [weather, setWeather] = React.useState<Weather | null>(null);
     const [location, setLocation] = React.useState<Location | null>(null);
     //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);

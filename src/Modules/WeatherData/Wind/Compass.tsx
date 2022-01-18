@@ -1,16 +1,22 @@
 import React, {useEffect} from 'react';
 import { motion } from "framer-motion"
+import { useInView } from "react-intersection-observer";
 import Arrow from "./Arrow";
 
 const spring = {
     type: "spring",
-    stiffness: 700,
-    damping: 90,
+    stiffness: 500,
+    damping: 40,
     mass:20
 };
 
+
+
 const Compass = ({deg}:{deg: number}) => {
-    const rotate = `rotate(${deg}deg)`;
+    const { ref, inView } = useInView({
+        threshold: .8
+    })
+
     return (
         <div id="compass">
             <svg width="150" height="150" viewBox="0 0 508 508" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,13 +29,14 @@ const Compass = ({deg}:{deg: number}) => {
                 <path d="M120.4 264.8C127.69 264.8 133.6 258.89 133.6 251.6C133.6 244.31 127.69 238.4 120.4 238.4C113.11 238.4 107.2 244.31 107.2 251.6C107.2 258.89 113.11 264.8 120.4 264.8Z" fill="#2C9984"/>
             </svg>
             <motion.div
+                ref={ref}
                 id="arrow"
                 transition={spring}
                 initial="hidden"
-                whileInView="visible"
+                animate={inView ? "visible" : ''}
                 variants={{
                     visible: {rotate:deg},
-                    hidden: {rotate:-45}
+                    hidden: {rotate:deg-90}
                 }}
             >
                 <Arrow/>

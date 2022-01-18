@@ -1,4 +1,5 @@
 import React, {createRef, useEffect, useState} from 'react';
+import useCurrentWidth from "../../Helpers/useCurrentWidth";
 
 interface Cycle {
     sunrise: number,
@@ -47,12 +48,65 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
     const sunsetDateString = new Date(sunsetDate).toLocaleTimeString().slice(0, -3);
     const currentDateString = new Date(currentDate).toLocaleTimeString().slice(0, -3);
 
-    const canvasWidth = (window.innerWidth-60)*0.8;
+    const canvasWidth = (useCurrentWidth()-60)*0.8;
 
     let SunX : number|null = null;
     const setSunX = (val:number) => {
         if(SunX === null) {
             SunX = Math.floor(val);
+        }
+    }
+
+    const quickDraw = () => {
+        SunX=null;
+        const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            const horizon = height/6*4 * dayNightProportion + height/6;
+            setSunX(width/24/60/60 * secondsSinceMidnight);
+            if(ctx){
+                clearCanvas(canvas);
+                const dayNightGradient = ctx.createLinearGradient(0, horizon-height/15, 0, horizon+height/20);
+                dayNightGradient.addColorStop(0, '#487aff');
+                dayNightGradient.addColorStop(1, '#111f69');
+                dayNightGradient.addColorStop(horizon/height+1/6, '#ff9116');
+                ctx.strokeStyle = dayNightGradient;
+                let x2 = 0;
+                for (mainStep = 0; mainStep <= maxMainStep; mainStep++) {
+                    const substepsPerStep = Math.abs(Math.ceil(1.5 * (width / maxMainStep) * Math.sin((width / maxMainStep * mainStep) / width * Math.PI)));
+                    for (let j = 0; j < substepsPerStep; j++) {
+                        const y = height / 2;
+                        x2++;
+                        const radians = x2 / width * Math.PI * 2;
+                        const y2 = y + height / 3 * Math.cos(radians);
+                        if (ctx) {
+                            ctx.beginPath();
+                            ctx.moveTo(x2 - 1, horizon);
+                            ctx.lineTo(x2, y2);
+                            ctx.stroke();
+                        }
+                        // @ts-ignore
+                        if (x2 <= SunX) {
+                            const canvas2 = document.getElementById('canvas2') as HTMLCanvasElement;
+                            if (canvas2) {
+                                const ctx2 = canvas2.getContext('2d');
+                                if (ctx2) {
+                                    clearCanvas(canvas2);
+                                    const color = y2 <= horizon ? '#ffe100' : '#525d5d';
+                                    ctx2.strokeStyle = color;
+                                    ctx2.fillStyle = color;
+                                    ctx2.beginPath();
+                                    ctx2.arc(x2, y2, width/40, 0, 2 * Math.PI);
+                                    ctx2.fill();
+                                    ctx2.stroke();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -85,7 +139,6 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
             const radians = x2 / width * Math.PI * 2;
             const y2 = y + height/3 * Math.cos(radians);
             if (ctx) {
-                // ctx.strokeStyle = y2 <= horizon ? '#3aaaff' : '#1f2e70';
                 ctx.beginPath();
                 ctx.moveTo(x2-1, horizon);
                 ctx.lineTo(x2, y2);
@@ -102,7 +155,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
                         ctx2.strokeStyle = color;
                         ctx2.fillStyle = color;
                         ctx2.beginPath();
-                        ctx2.arc(x2, y2, 20, 0, 2*Math.PI);
+                        ctx2.arc(x2, y2, width/40, 0, 2*Math.PI);
                         ctx2.fill();
                         ctx2.stroke();
                     }
@@ -117,6 +170,13 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
 
     useEffect(() => {
         let interval : null | NodeJS.Timer = null;
+        let timeoutId: NodeJS.Timeout | null = null;
+        const resizeListener = () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = setTimeout(() => quickDraw(), 10);
+        };
         interval = setInterval(() => {
             setIntervals(prev => prev + 1);
             if (isInViewport(document.getElementById('canvas1'))) {
@@ -128,11 +188,13 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference}: Cycle
                 clearCanvas(document.getElementById('canvas1'));
                 clearCanvas(document.getElementById('canvas2') as HTMLCanvasElement);
                 initialAnimation();
+                window.addEventListener('resize', resizeListener);
             }
         }, 100);
         return () => {
             if (interval) {
                 clearInterval(interval);
+                window.removeEventListener('resize', resizeListener);
             }
         }
     }, [sunrise,sunset]);
