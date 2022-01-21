@@ -16,7 +16,7 @@ function App() {
         lowerModule = <WeatherFetcher coordinates={coordinates} unit={unit}/>
     )
     return (
-        <div id="app">
+        <div id="app" className={'whiteMode'}>
             <Header setDarkMode={setDarkMode} setUnit={setUnit}/>
             <Coordinates setter={setCoordinates}/>
             {lowerModule}

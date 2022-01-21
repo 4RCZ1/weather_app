@@ -13,8 +13,30 @@ html, body{
   padding: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+#app{
+  transition: background-color 0.2s ease;
+}
+.whiteMode{
   color: #333;
-  background-color: variables.$basicBlue;
+  background: variables.$basicBlue;
+  .mainBoxes{
+    background: variables.$basicBoxes;
+  }
+  header,footer{
+    background: variables.$basicBlack;
+  }
+}
+.darkMode{
+  color:white;
+  background: variables.$darkBlue;
+  .mainBoxes{
+    background: variables.$darkBoxes;
+  }
+  header,footer{
+    background: variables.$darkBlack;
+  }
 }
 #root{
   width:100%;
@@ -42,7 +64,7 @@ html, body{
   width:80vw;
 }
 .mainBoxes{
-  background: variables.$basicWhite;
+  transition: background-color 0.2s ease;
   width:calc(100% - 50px);
   padding:20px;
   border-radius:20px;
