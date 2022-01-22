@@ -27,6 +27,9 @@ html, body{
   header,footer{
     background: variables.$basicBlack;
   }
+  #darkModeSwitch{
+    background: variables.$basicSwitch;
+  }
 }
 .darkMode{
   color:white;
@@ -36,6 +39,9 @@ html, body{
   }
   header,footer{
     background: variables.$darkBlack;
+  }
+  #darkModeSwitch{
+    background: variables.$darkSwitch;
   }
 }
 #root{
