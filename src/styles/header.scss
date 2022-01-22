@@ -5,11 +5,12 @@ header {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  height: 80px;
+  min-height: 80px;
   background: variables.$basicBlack;
   width: 100%;
 
   #wrapper {
+    flex-wrap: wrap;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,6 +29,7 @@ header {
       display: flex;
       justify-content: space-around;
       align-items: center;
+      min-width:160px;
     }
   }
 }
