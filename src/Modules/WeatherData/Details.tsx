@@ -6,14 +6,14 @@ interface details {
     clouds: number;
 }
 
-const Details = ({humidity,pressure,clouds}:details) => {
-  return (
-      <div id="details" className="mainBoxes">
+const Details = ({humidity, pressure, clouds}: details) => {
+    return (
+        <div id="details" className="mainBoxes">
             <h3>Details</h3>
             <p>Humidity: {humidity}%</p>
             <p>Pressure: {pressure} hPa</p>
             <p>Clouds: {clouds}%</p>
-      </div>
-  );
+        </div>
+    );
 };
 export default Details;

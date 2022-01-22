@@ -1,14 +1,14 @@
 import React from 'react';
 
 interface WeatherType {
-    type:{
+    type: {
         description: string;
         icon: string;
     }
 
 }
 
-const Type = ({type}:WeatherType) => {
+const Type = ({type}: WeatherType) => {
     return (
         <div id="type" className="mainBoxes">
             <h3>{type.description}</h3>

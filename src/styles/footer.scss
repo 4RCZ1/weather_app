@@ -1,29 +1,33 @@
 @use './variables';
 
-footer{
-  margin-top:20px;
+footer {
+  margin-top: 20px;
   background: variables.$basicBlack;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  #wrapper{
-    width:80%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-direction:column;
-    margin-bottom:10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  #wrapper {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10px;
   }
-  a{
-    color:inherit;
-    text-decoration:none;
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
-  li{
-    margin-bottom:10px;
+
+  li {
+    margin-bottom: 10px;
   }
-  p{
-    margin:0;
-    padding:0;
+
+  p {
+    margin: 0;
+    padding: 0;
   }
 }

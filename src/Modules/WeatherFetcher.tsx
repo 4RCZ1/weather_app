@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 
 import Temperature from "./WeatherData/Temperature";
@@ -29,6 +29,7 @@ interface Weather {
         gust_mph: number;
     };
 }
+
 interface Location {
     name: string;
     country: string;
@@ -38,7 +39,7 @@ interface Location {
 
 interface weatherFetcherProps {
     coordinates: number[];
-    units:string;
+    units: string;
 }
 
 const correctCoordinates = (coordinates: number): number => {
@@ -48,7 +49,7 @@ const correctCoordinates = (coordinates: number): number => {
     return coordinates;
 }
 
-const WeatherFetcher = ({coordinates,units}:weatherFetcherProps) => {
+const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
     const [weather, setWeather] = React.useState<Weather | null>(null);
     const [location, setLocation] = React.useState<Location | null>(null);
     //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
@@ -79,7 +80,7 @@ const WeatherFetcher = ({coordinates,units}:weatherFetcherProps) => {
     };
 
     useEffect(() => {
-        isMock(false).then(data=>{
+        isMock(false).then(data => {
             setWeather(
                 {
                     temp: data.current.temp_c,
@@ -118,11 +119,13 @@ const WeatherFetcher = ({coordinates,units}:weatherFetcherProps) => {
             return (
                 <div id={"weather"}>
                     <div className="mainBoxes">
-                        <h1>Najbliższy punkt pomiaru: {location.name}</h1>
-                        <h2>Kraj: {location.country}</h2>
+                        <h1>Closest measuring point: {location.name}</h1>
+                        <h2>Country: {location.country}</h2>
                     </div>
-                    <Temperature temp={units==='F'? weather.temp_f : weather.temp} feels_like={units==='F' ? weather.feels_like_f : weather.feels_like} units={units}/>
-                    <Wind speed={weather.wind.speed} speed_mph={weather.wind.speed_mph} deg={weather.wind.deg} gust={weather.wind.gust} gust_mph={weather.wind.gust_mph} units={units}/>
+                    <Temperature temp={units === 'F' ? weather.temp_f : weather.temp}
+                                 feels_like={units === 'F' ? weather.feels_like_f : weather.feels_like} units={units}/>
+                    <Wind speed={weather.wind.speed} speed_mph={weather.wind.speed_mph} deg={weather.wind.deg}
+                          gust={weather.wind.gust} gust_mph={weather.wind.gust_mph} units={units}/>
                     <Type type={weather.weather}/>
                     <Details humidity={weather.humidity} pressure={weather.pressure} clouds={weather.clouds}/>
                     <TimeFetcher coords={coords}/>

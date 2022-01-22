@@ -16,14 +16,14 @@ interface Setter {
     setter: (value: number[]) => void;
 }
 
-const Coordinates = ({setter} : Setter) => {
+const Coordinates = ({setter}: Setter) => {
     const [map, setMap] = useState<Map>();
-    const mapElement : React.RefObject<HTMLDivElement> = React.createRef();
+    const mapElement: React.RefObject<HTMLDivElement> = React.createRef();
 
     useEffect(() => {
 
         const initialMap = new Map({
-            controls:[],
+            controls: [],
             layers: [
                 new TileLayer({
                     source: new OSM(),
@@ -31,14 +31,14 @@ const Coordinates = ({setter} : Setter) => {
             ],
             target: 'map',
             view: new View({
-                center: [0,0],
+                center: [0, 0],
                 zoom: 2,
             }),
         });
         initialMap.on('singleclick', function (evt) {
             setter(transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
         });
-        navigator.geolocation.getCurrentPosition(location=>{
+        navigator.geolocation.getCurrentPosition(location => {
             initialMap.setView(new View({
                 center: transform([location.coords.longitude, location.coords.latitude], 'EPSG:4326', 'EPSG:3857'),
                 zoom: 15,
@@ -50,7 +50,7 @@ const Coordinates = ({setter} : Setter) => {
 
     return (
         <div>
-            <div ref={mapElement} id="map" className="map" />
+            <div ref={mapElement} id="map" className="map"/>
         </div>
     );
 }

@@ -7,58 +7,71 @@
 @use './wind';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-html, body{
-  width:100%;
-  display:flex;
+html, body {
+  width: 100%;
+  display: flex;
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   transition: background-color 0.2s ease;
 }
-#app{
+
+#app {
   transition: background-color 0.2s ease;
 }
-.whiteMode{
+
+.whiteMode {
   color: #333;
   background: variables.$basicBlue;
-  .mainBoxes{
+
+  .mainBoxes {
     background: variables.$basicBoxes;
   }
-  header,footer{
+
+  header, footer {
     background: variables.$basicBlack;
   }
-  #darkModeSwitch{
+
+  #darkModeSwitch {
     background: variables.$basicSwitch;
   }
-  footer{
-    p{
+
+  footer {
+    p {
       color: #5e5e5e;
     }
   }
 }
-.darkMode{
-  color:white;
+
+.darkMode {
+  color: white;
   background: variables.$darkBlue;
-  .mainBoxes{
+
+  .mainBoxes {
     background: variables.$darkBoxes;
   }
-  header,footer{
+
+  header, footer {
     background: variables.$darkBlack;
   }
-  #darkModeSwitch{
+
+  #darkModeSwitch {
     background: variables.$darkSwitch;
   }
-  footer{
-    p{
+
+  footer {
+    p {
       color: #afafaf;
     }
   }
 }
-#root{
-  width:100%;
+
+#root {
+  width: 100%;
 }
-#app{
+
+#app {
   width: 100%;
   height: 100%;
   display: flex;
@@ -66,24 +79,28 @@ html, body{
   justify-content: center;
   align-items: center;
 }
-#map{
-  display:flex;
-  width:90vw;
-  height:60vh;
-  margin:10px;
-  canvas{
-    border-radius:10px !important;
+
+#map {
+  display: flex;
+  width: 90vw;
+  height: 60vh;
+  margin: 10px;
+
+  canvas {
+    border-radius: 10px !important;
   }
 }
-#weather{
-  display:flex;
-  flex-direction:column;
-  width:80vw;
+
+#weather {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
 }
-.mainBoxes{
+
+.mainBoxes {
   transition: background-color 0.2s ease;
-  width:calc(100% - 50px);
-  padding:20px;
-  border-radius:20px;
-  margin:5px;
+  width: calc(100% - 50px);
+  padding: 20px;
+  border-radius: 20px;
+  margin: 5px;
 }

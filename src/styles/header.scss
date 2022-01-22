@@ -1,27 +1,30 @@
 @use './variables';
 
-header{
+header {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  height:80px;
+  height: 80px;
   background: variables.$basicBlack;
-  width:100%;
-  #wrapper{
+  width: 100%;
+
+  #wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width:80%;
-    height:100%;
-    h1{
+    width: 80%;
+    height: 100%;
+
+    h1 {
       font-size: 1.8em;
       font-weight: bold;
       margin: 0;
       padding: 0;
     }
-    #switches{
-      width:30%;
+
+    #switches {
+      width: 30%;
       display: flex;
       justify-content: space-around;
       align-items: center;
