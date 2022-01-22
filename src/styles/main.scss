@@ -4,6 +4,7 @@
 @use './variables';
 @use './header';
 @use './footer';
+@use './wind';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 html, body{
@@ -30,6 +31,11 @@ html, body{
   #darkModeSwitch{
     background: variables.$basicSwitch;
   }
+  footer{
+    p{
+      color: #5e5e5e;
+    }
+  }
 }
 .darkMode{
   color:white;
@@ -42,6 +48,11 @@ html, body{
   }
   #darkModeSwitch{
     background: variables.$darkSwitch;
+  }
+  footer{
+    p{
+      color: #afafaf;
+    }
   }
 }
 #root{

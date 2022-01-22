@@ -6,18 +6,17 @@ import Footer from "./Modules/Footer";
 
 function App() {
     const [coordinates, setCoordinates] = useState<number[] | null>(null);
-    const [unit, setUnit] = useState<string>('C');
-    const [darkMode, setDarkMode] = useState<boolean>(false);
+    const [units, setUnits] = useState<string>('C');
     console.log("render");
     let lowerModule;
     if(coordinates === null){
         lowerModule = <div>Click on the map to select coordinates, or allow geolocation on this website</div>
     }else(
-        lowerModule = <WeatherFetcher coordinates={coordinates} unit={unit}/>
+        lowerModule = <WeatherFetcher coordinates={coordinates} units={units}/>
     )
     return (
         <div id="app" className={'whiteMode'}>
-            <Header setDarkMode={setDarkMode} setUnit={setUnit}/>
+            <Header units={units} setUnits={setUnits}/>
             <Coordinates setter={setCoordinates}/>
             {lowerModule}
             <Footer/>

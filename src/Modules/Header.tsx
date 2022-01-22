@@ -5,11 +5,6 @@ import clsx from "clsx";
 import { styled } from '@mui/system';
 import {useSwitch, UseSwitchProps} from "@mui/base/SwitchUnstyled";
 
-interface headerProps {
-    setDarkMode: (darkMode: boolean) => void;
-    setUnit: (units: string) => void;
-}
-
 const blue = {
     700: '#0059B2',
 };
@@ -87,8 +82,12 @@ const switchModes = () => {
         const mode = element.className;
         if (mode === 'whiteMode') {
             element.className = 'darkMode';
+            // @ts-ignore
+            document.querySelector('canvas').style.filter="invert(90%)";
         }else{
             element.className = 'whiteMode';
+            // @ts-ignore
+            document.querySelector('canvas').style.filter="invert(0%)";
         }
     }
 }
@@ -112,7 +111,20 @@ function DarkModeSwitch(props: UseSwitchProps) {
     );
 }
 
-const Header = ({setDarkMode,setUnit}:headerProps) => {
+interface headerProps {
+    units: string;
+    setUnits: (units: string) => void;
+}
+
+const Header = ({units,setUnits}:headerProps) => {
+
+    const switchUnits = () => {
+        if(units === 'C'){
+            setUnits('F');
+        }else{
+            setUnits('C');
+        }
+    }
 
     return(
         <header>
@@ -120,7 +132,7 @@ const Header = ({setDarkMode,setUnit}:headerProps) => {
                 <h1>Weather App</h1>
                 <div id={'switches'}>
                     <FormGroup>
-                        <FormControlLabel control={<Switch defaultChecked />} label="Units" />
+                        <FormControlLabel control={<Switch defaultChecked onClick={switchUnits}/>} label="Units" />
                     </FormGroup>
                     <DarkModeSwitch/>
                 </div>

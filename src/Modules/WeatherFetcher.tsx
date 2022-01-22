@@ -11,7 +11,9 @@ import Details from "./WeatherData/Details";
 
 interface Weather {
     temp: number;
+    temp_f: number;
     feels_like: number;
+    feels_like_f: number;
     pressure: number;
     humidity: number;
     clouds: number;
@@ -21,8 +23,10 @@ interface Weather {
     };
     wind: {
         speed: number;
+        speed_mph: number;
         deg: number;
         gust: number;
+        gust_mph: number;
     };
 }
 interface Location {
@@ -34,7 +38,7 @@ interface Location {
 
 interface weatherFetcherProps {
     coordinates: number[];
-    unit:string;
+    units:string;
 }
 
 const correctCoordinates = (coordinates: number): number => {
@@ -44,7 +48,7 @@ const correctCoordinates = (coordinates: number): number => {
     return coordinates;
 }
 
-const WeatherFetcher = ({coordinates,unit}:weatherFetcherProps) => {
+const WeatherFetcher = ({coordinates,units}:weatherFetcherProps) => {
     const [weather, setWeather] = React.useState<Weather | null>(null);
     const [location, setLocation] = React.useState<Location | null>(null);
     //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
@@ -79,7 +83,9 @@ const WeatherFetcher = ({coordinates,unit}:weatherFetcherProps) => {
             setWeather(
                 {
                     temp: data.current.temp_c,
+                    temp_f: data.current.temp_f,
                     feels_like: data.current.feelslike_c,
+                    feels_like_f: data.current.feelslike_f,
                     pressure: data.current.pressure_mb,
                     humidity: data.current.humidity,
                     clouds: data.current.cloud,
@@ -89,8 +95,10 @@ const WeatherFetcher = ({coordinates,unit}:weatherFetcherProps) => {
                     },
                     wind: {
                         speed: data.current.wind_kph,
+                        speed_mph: data.current.wind_mph,
                         deg: data.current.wind_degree,
                         gust: data.current.gust_kph,
+                        gust_mph: data.current.gust_mph,
                     },
                 }
             );
@@ -113,8 +121,8 @@ const WeatherFetcher = ({coordinates,unit}:weatherFetcherProps) => {
                         <h1>Najbliższy punkt pomiaru: {location.name}</h1>
                         <h2>Kraj: {location.country}</h2>
                     </div>
-                    <Temperature temp={weather.temp} feels_like={weather.feels_like} />
-                    <Wind speed={weather.wind.speed} deg={weather.wind.deg} gust={weather.wind.gust}/>
+                    <Temperature temp={units==='F'? weather.temp_f : weather.temp} feels_like={units==='F' ? weather.feels_like_f : weather.feels_like} units={units}/>
+                    <Wind speed={weather.wind.speed} speed_mph={weather.wind.speed_mph} deg={weather.wind.deg} gust={weather.wind.gust} gust_mph={weather.wind.gust_mph} units={units}/>
                     <Type type={weather.weather}/>
                     <Details humidity={weather.humidity} pressure={weather.pressure} clouds={weather.clouds}/>
                     <TimeFetcher coords={coords}/>

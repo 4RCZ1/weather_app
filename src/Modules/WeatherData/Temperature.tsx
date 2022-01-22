@@ -3,22 +3,14 @@ import React from 'react';
 interface temp {
     temp: number;
     feels_like: number;
-    unit?: string;
+    units: string;
 }
 
-const Temperature = ({ temp,feels_like,unit }:temp) => {
+const Temperature = ({ temp,feels_like,units }:temp) => {
   return (
     <div id="temp"  className="mainBoxes">
-      <div className="temp__value">
-          <span>Temperatura: </span>
-          <span>{temp}</span>
-          <span>°</span>
-          <span>{unit === 'F' ? 'F' : 'C'}</span>
-      </div>
-      <div className="temp__feels">
-          <span>Odczuwalna: </span>
-          <span>{feels_like}</span>
-      </div>
+      <p>Temperature: {temp}° {units === 'F' ? 'F' : 'C'}</p>
+      <p>Feels like: {feels_like}° {units === 'F' ? 'F' : 'C'}</p>
     </div>
   );
 };
