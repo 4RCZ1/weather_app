@@ -16,8 +16,8 @@ const Wind = ({speed, speed_mph, gust, gust_mph, deg, units}: windProps) => {
             <div className={'wrapper'}>
                 <div id={'values'}>
                     <h3>Wind</h3>
-                    <p>{units === 'F' ? speed_mph + " mph" : speed + " km/h"}</p>
-                    <p>{units === 'F' ? gust_mph + " mph" : gust + " km/h"}</p>
+                    <p>Wind speed: {units === 'F' ? speed_mph + " mph" : speed + " km/h"}</p>
+                    <p>Gust: {units === 'F' ? gust_mph + " mph" : gust + " km/h"}</p>
                     <p>{deg}°</p>
                 </div>
                 <Compass deg={deg - 135}/>
