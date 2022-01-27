@@ -8,6 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 html, body {
+  overflow-x: hidden;
   width: 100%;
   display: flex;
   margin: 0;
@@ -84,22 +85,43 @@ html, body {
   display: flex;
   width: 90vw;
   height: 60vh;
-  margin: 10px;
+  margin: 30px 10px 10px;
 
   canvas {
     border-radius: 10px !important;
   }
 }
 
+@media (max-width: 768px) {
+  #map {
+    width: calc(100vw - 15px);
+    height: 80vh;
+    margin:0;
+
+    canvas{
+      border-radius: 0 !important;
+    }
+  }
+}
+
 #weather {
-  display: flex;
-  flex-direction: column;
-  width: 80vw;
+  display:flex;
+  flex-wrap: wrap;
+  width: 90vw;
+}
+
+@media (max-width: 768px) {
+  #weather {
+    width: 98vw;
+  }
 }
 
 .mainBoxes {
   transition: background-color 0.2s ease;
-  width: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  //width: calc(100% - 50px);
   padding: 20px;
   border-radius: 20px;
   margin: 5px;

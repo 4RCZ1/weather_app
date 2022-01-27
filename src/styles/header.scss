@@ -4,7 +4,6 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
   min-height: 80px;
   background: variables.$basicBlack;
   width: 100%;
@@ -30,6 +29,15 @@ header {
       justify-content: space-around;
       align-items: center;
       min-width:160px;
+      margin:0 5px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  header {
+    #wrapper {
+      width: 95%;
+      justify-content: center;
     }
   }
 }
