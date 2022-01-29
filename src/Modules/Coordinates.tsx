@@ -6,6 +6,7 @@ import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
 import {createStringXY} from 'ol/coordinate';
 import {transform} from 'ol/proj';
+import Modal from "../Helpers/Modal";
 
 const mousePositionControl = new MousePosition({
     coordinateFormat: createStringXY(4),
@@ -21,7 +22,6 @@ const Coordinates = ({setter}: Setter) => {
     const mapElement: React.RefObject<HTMLDivElement> = React.createRef();
 
     useEffect(() => {
-
         const initialMap = new Map({
             controls: [],
             layers: [
@@ -55,5 +55,3 @@ const Coordinates = ({setter}: Setter) => {
     );
 }
 export default Coordinates;
-
-

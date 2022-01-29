@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 import Temperature from "./WeatherData/Temperature";
@@ -7,6 +7,7 @@ import TimeFetcher from "./TimeFetcher";
 import Wind from "./WeatherData/Wind";
 import {WEATHER} from "./WeatherData/Mocks";
 import Details from "./WeatherData/Details";
+import Modal from "../Helpers/Modal";
 
 
 interface Weather {
@@ -52,6 +53,8 @@ const correctCoordinates = (coordinates: number): number => {
 const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
     const [weather, setWeather] = React.useState<Weather | null>(null);
     const [location, setLocation] = React.useState<Location | null>(null);
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState("xd");
     //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
 
     const coords: string = correctCoordinates(coordinates[1]) + ',' + correctCoordinates(coordinates[0]);
@@ -69,48 +72,52 @@ const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
         if (mock) {
             return WEATHER;
         }
-        let response = WEATHER;
+        let response;
         // @ts-ignore
         await axios.request(options).then(res => {
             response = res.data;
         }).catch(err => {
-            console.log(err);
+            setShowModal(true);
+            console.log('xd');
+            setMessage(err.response.data.error.message);
         });
         return response;
     };
 
     useEffect(() => {
         isMock(false).then(data => {
-            setWeather(
-                {
-                    temp: data.current.temp_c,
-                    temp_f: data.current.temp_f,
-                    feels_like: data.current.feelslike_c,
-                    feels_like_f: data.current.feelslike_f,
-                    pressure: data.current.pressure_mb,
-                    humidity: data.current.humidity,
-                    clouds: data.current.cloud,
-                    weather: {
-                        description: data.current.condition.text,
-                        icon: data.current.condition.icon,
-                    },
-                    wind: {
-                        speed: data.current.wind_kph,
-                        speed_mph: data.current.wind_mph,
-                        deg: data.current.wind_degree,
-                        gust: data.current.gust_kph,
-                        gust_mph: data.current.gust_mph,
-                    },
-                }
-            );
-            setLocation(
-                {
-                    name: data.location.name,
-                    country: data.location.country,
-                    lat: data.location.lat,
-                    lon: data.location.lon,
-                }
-            );
+            if(data){
+                setWeather(
+                    {
+                        temp: data.current.temp_c,
+                        temp_f: data.current.temp_f,
+                        feels_like: data.current.feelslike_c,
+                        feels_like_f: data.current.feelslike_f,
+                        pressure: data.current.pressure_mb,
+                        humidity: data.current.humidity,
+                        clouds: data.current.cloud,
+                        weather: {
+                            description: data.current.condition.text,
+                            icon: data.current.condition.icon,
+                        },
+                        wind: {
+                            speed: data.current.wind_kph,
+                            speed_mph: data.current.wind_mph,
+                            deg: data.current.wind_degree,
+                            gust: data.current.gust_kph,
+                            gust_mph: data.current.gust_mph,
+                        },
+                    }
+                );
+                setLocation(
+                    {
+                        name: data.location.name,
+                        country: data.location.country,
+                        lat: data.location.lat,
+                        lon: data.location.lon,
+                    }
+                );
+            }
         });
     }, [coordinates]);
 
@@ -118,6 +125,7 @@ const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
         if (weather && location && coordinates) {
             return (
                 <div id={"weather"}>
+                    <Modal showModal={showModal} setShowModal={setShowModal} buttonText={"Ok"} promptText={message}/>
                     <div className="mainBoxes">
                         <h1>Closest measuring point: {location.name}</h1>
                         <h2>Country: {location.country}</h2>
