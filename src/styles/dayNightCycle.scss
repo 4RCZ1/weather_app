@@ -1,4 +1,15 @@
 #dayNightCycle {
+  .wrapper{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    .line{
+      height:80%;
+    }
+    p{
+      margin:10px;
+    }
+  }
   #dayNightCycleContainer {
     position: relative;
 
@@ -16,6 +27,24 @@
 
   #moon {
     text-align: center;
+  }
+}
+.darkMode{
+  #dayNightCycle{
+    .wrapper{
+      .line{
+        border: 1px solid white;
+      }
+    }
+  }
+}
+.whiteMode{
+  #dayNightCycle{
+    .wrapper{
+      .line{
+        border: 1px solid #333;
+      }
+    }
   }
 }
 

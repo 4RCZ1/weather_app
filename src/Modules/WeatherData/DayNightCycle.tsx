@@ -16,10 +16,7 @@ function isInViewport(element: HTMLElement | null): boolean {
     }
     const rect = element.getBoundingClientRect();
     return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        rect.top >= element.clientHeight/2
     );
 }
 
@@ -52,7 +49,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
     const currentDateString = new Date(currentDate).toLocaleTimeString().slice(0, -3);
 
     const currentWidth = useCurrentWidth();
-    const canvasWidth = currentWidth>768 ? (currentWidth - 60) * 0.9 : (currentWidth - 60) * 0.98;
+    const canvasWidth = currentWidth > 768 ? (currentWidth - 60) * 0.9 : (currentWidth - 60) * 0.98;
 
     let SunX: number | null = null;
     const setSunX = (val: number) => {
@@ -181,8 +178,8 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
             }
             timeoutId = setTimeout(() => quickDraw(), 10);
         };
+        setIntervals(prev => prev + 1);
         interval = setInterval(() => {
-            setIntervals(prev => prev + 1);
             if (isInViewport(document.getElementById('canvas1'))) {
                 if (interval) {
                     clearInterval(interval);
@@ -206,12 +203,17 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
 
     return (
         <div id={'dayNightCycle'} className="mainBoxes">
-            <p>Day/night cycle</p>
-            <p>sunrise: {sunriseDateString}</p>
-            <p>sunset: {sunsetDateString}</p>
-            <p>current time: {currentDateString}</p>
-            <p>Day
-                length: {Math.floor(dayLength / 60 / 60)}:{Math.floor((dayLength - Math.floor(dayLength / 60 / 60) * 60 * 60) / 60)}</p>
+            <h3>Day/night cycle</h3>
+            <div className="wrapper">
+                <p>sunrise: {sunriseDateString}</p>
+                <span className={'line'}/>
+                <p className={'center'}>sunset: {sunsetDateString}</p>
+                <span className={'line'}/>
+                <p className={'center'}>current time: {currentDateString}</p>
+                <span className={'line'}/>
+                <p>day length:
+                    {Math.floor(dayLength / 60 / 60)}:{Math.floor((dayLength - Math.floor(dayLength / 60 / 60) * 60 * 60) / 60)}</p>
+            </div>
             <div id={'dayNightCycleContainer'}>
                 <canvas id={'canvas1'} width={canvasWidth} height={canvasWidth * 0.3}/>
                 <canvas id={'canvas2'} width={canvasWidth} height={canvasWidth * 0.3}/>
