@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer>
-            <div id={'wrapper'}>
+            <div className={'wrapper'}>
                 <ul>
                     <li><a href={'https://github.com/4RCZ1/weather_app'}>Weather App on Github</a></li>
                     <li><a href={'https://github.com/4RCZ1'}>More projects</a></li>

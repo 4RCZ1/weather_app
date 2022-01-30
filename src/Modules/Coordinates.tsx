@@ -49,9 +49,7 @@ const Coordinates = ({setter}: Setter) => {
     }, []);
 
     return (
-        <div>
-            <div ref={mapElement} id="map" className="map"/>
-        </div>
+        <div ref={mapElement} id="map" className="map"/>
     );
 }
 export default Coordinates;

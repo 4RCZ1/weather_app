@@ -127,7 +127,7 @@ const Header = ({units, setUnits}: headerProps) => {
 
     return (
         <header>
-            <div id={"wrapper"}>
+            <div className={"wrapper"}>
                 <h1>Weather App</h1>
                 <div id={'switches'}>
                     <FormGroup>

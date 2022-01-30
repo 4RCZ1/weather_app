@@ -8,7 +8,7 @@ header {
   background: variables.$basicBlack;
   width: 100%;
 
-  #wrapper {
+  .wrapper {
     flex-wrap: wrap;
     display: flex;
     justify-content: space-between;
@@ -35,7 +35,7 @@ header {
 }
 @media (max-width: 768px) {
   header {
-    #wrapper {
+    .wrapper {
       width: 95%;
       justify-content: center;
     }

@@ -32,7 +32,7 @@ const Type = ({type}: WeatherType) => {
     return (
         <div id="type" className="mainBoxes">
             <h3>{type.description}</h3>
-            <img id={'icon'} src={imageUrl} alt={type.description}/>
+            <img id={'icon'} width={128} height={128} src={imageUrl} alt={type.description}/>
         </div>
     );
 };
