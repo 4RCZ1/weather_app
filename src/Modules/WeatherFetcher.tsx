@@ -8,6 +8,7 @@ import Wind from "./WeatherData/Wind";
 import {WEATHER} from "./WeatherData/Mocks";
 import Details from "./WeatherData/Details";
 import Modal from "../Helpers/Modal";
+import {scrollToDetails} from "../Helpers/ScrollButton";
 
 
 interface Weather {
@@ -76,10 +77,16 @@ const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
         // @ts-ignore
         await axios.request(options).then(res => {
             response = res.data;
+            scrollToDetails();
         }).catch(err => {
+            console.log(err);
             setShowModal(true);
-            console.log('xd');
-            setMessage(err.response.data.error.message);
+            if(err.response){
+                setMessage(err.response.data.error.message);
+            }else{
+                setMessage("Something went wrong");
+            }
+
         });
         return response;
     };
@@ -127,7 +134,7 @@ const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
                 <div id={"weather"}>
                     <Modal showModal={showModal} setShowModal={setShowModal} buttonText={"Ok"} promptText={message}/>
                     <div className="mainBoxes">
-                        <h1>Closest measuring point: {location.name}</h1>
+                        <h1>Location: {location.name}</h1>
                         <h2>Country: {location.country}</h2>
                     </div>
                     <Temperature temp={units === 'F' ? weather.temp_f : weather.temp}
