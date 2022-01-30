@@ -1,7 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Suspense, lazy} from 'react';
 import axios from 'axios';
-import DayNightCycle from "./WeatherData/DayNightCycle";
+//import DayNightCycle from "./WeatherData/DayNightCycle";
 import {ASTRONOMY} from "./WeatherData/Mocks";
+
+const DayNightCycle = lazy(() => import('./WeatherData/DayNightCycle'));
 
 interface Time {
     moon_illumination: number;

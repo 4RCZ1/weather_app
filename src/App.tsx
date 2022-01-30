@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, lazy, Suspense} from 'react';
 import Coordinates from "./Modules/Coordinates";
-import WeatherFetcher from "./Modules/WeatherFetcher";
+//import WeatherFetcher from "./Modules/WeatherFetcher";
 import Header from "./Modules/Header";
 import Footer from "./Modules/Footer";
+import ScrollButton from "./Helpers/ScrollButton";
+
+const WeatherFetcher = lazy(() => import("./Modules/WeatherFetcher"));
 
 function App() {
     const [coordinates, setCoordinates] = useState<number[] | null>(null);
@@ -16,10 +19,13 @@ function App() {
     )
     return (
         <div id="app" className={'whiteMode'}>
-            <Header units={units} setUnits={setUnits}/>
-            <Coordinates setter={setCoordinates}/>
-            {lowerModule}
-            <Footer/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Header units={units} setUnits={setUnits}/>
+                <Coordinates setter={setCoordinates}/>
+                {lowerModule}
+                <Footer/>
+                <ScrollButton/>
+            </Suspense>
         </div>
   );
 }
