@@ -7,6 +7,7 @@ import View from 'ol/View';
 import {createStringXY} from 'ol/coordinate';
 import {transform} from 'ol/proj';
 import Modal from "../Helpers/Modal";
+import ScrollHandler from './Coordinates/ScrollHandler';
 
 const mousePositionControl = new MousePosition({
     coordinateFormat: createStringXY(4),
@@ -49,7 +50,11 @@ const Coordinates = ({setter}: Setter) => {
     }, []);
 
     return (
-        <div ref={mapElement} id="map" className="map"/>
+        <div id={'coordinates'}>
+            <div ref={mapElement} id="map" className="map"/>
+            <ScrollHandler/>
+        </div>
+
     );
 }
 export default Coordinates;

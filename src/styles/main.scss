@@ -1,12 +1,13 @@
-@use './type';
-@use './dayNightCycle';
-@use './compass';
-@use './variables';
-@use './header';
-@use './footer';
-@use './wind';
-@use './modal';
-@use './scrollButton';
+@use 'type';
+@use 'dayNightCycle';
+@use 'compass';
+@use 'variables';
+@use 'header';
+@use 'footer';
+@use 'wind';
+@use 'modal';
+@use 'scrollButton';
+@use 'coordinates';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 html, body {
@@ -95,14 +96,6 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-#map {
-  display: flex;
-  width: 100vw;
-  height: calc(100vh - 80px);;
-  margin-bottom:10px;
-
 }
 
 @media (max-width: 768px) {
