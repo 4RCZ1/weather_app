@@ -49,7 +49,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
     const currentDateString = new Date(currentDate).toLocaleTimeString().slice(0, -3);
 
     const currentWidth = useCurrentWidth();
-    const canvasWidth = currentWidth > 768 ? (currentWidth - 60) * 0.9 : (currentWidth - 60) * 0.98;
+    const canvasWidth = currentWidth > 768 ? (currentWidth - 50) * 0.9 : (currentWidth - 50) * 0.98;
 
     let SunX: number | null = null;
     const setSunX = (val: number) => {

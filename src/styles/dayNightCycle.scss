@@ -3,8 +3,9 @@
     display:flex;
     justify-content:space-around;
     align-items:center;
+    flex-wrap:wrap;
     .line{
-      height:80%;
+      height:1.5em;
     }
     p{
       margin:10px;
