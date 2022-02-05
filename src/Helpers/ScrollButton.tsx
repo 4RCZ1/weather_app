@@ -21,9 +21,9 @@ const ScrollButton = () => {
 
     const scrollFunction = () => {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            setText("Scroll to map");
+            setText("Go to map");
         } else {
-            setText("Scroll to details");
+            setText("Go to details");
         }
     }
 
@@ -32,7 +32,7 @@ const ScrollButton = () => {
     },[])
 
     return(
-        <button id={'scrollButton'} onClick={text==="Scroll to map" ? scrollToMap : scrollToDetails}>
+        <button id={'scrollButton'} onClick={text==="Go to map" ? scrollToMap : scrollToDetails}>
             {text}
         </button>
     )

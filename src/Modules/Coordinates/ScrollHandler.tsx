@@ -2,15 +2,21 @@ import React, {useEffect} from "react";
 
 const ScrollHandler = () => {
     let ctrlPressed: boolean = false;
-    let mouseInTheBox : boolean = false;
+    let mouseOnMap : boolean = false;
+    let mouseOnPrompt : boolean = false;
 
-    const onMouseEnter = () => {
-        mouseInTheBox = true;
-        console.log("Mouse entered the box");
+    const mouseOnPromptEnter = () => {
+        mouseOnPrompt = true;
     };
-    const onMouseLeave = () => {
-        mouseInTheBox = false;
-        console.log("Mouse left the box");
+    const mouseOnPromptLeave = () => {
+        mouseOnPrompt = false;
+    };
+
+    const onMouseMapEnter = () => {
+        mouseOnMap = true;
+    };
+    const onMouseMapLeave = () => {
+        mouseOnMap = false;
     };
 
     const onKeyDown = (e: any) => {
@@ -30,7 +36,7 @@ const ScrollHandler = () => {
 
         const handleScroll = () => {
 
-            if (ctrlPressed || !mouseInTheBox) {
+            if (ctrlPressed || (!mouseOnMap && !mouseOnPrompt)) {
                 return;
             }
             const element = document.getElementById("scrollHandler");
@@ -56,7 +62,7 @@ const ScrollHandler = () => {
                 element.innerHTML = "";
                 timeoutIn=setTimeout(() => {
                     element.style.display = "none";
-                }, 1100);
+                }, 900);
             }, 800);
         };
         window.addEventListener("scroll", handleScroll);
@@ -64,21 +70,21 @@ const ScrollHandler = () => {
         window.addEventListener('keyup', onKeyUp);
         const map = document.getElementById("map");
         if (map) {
-            map.addEventListener("mouseenter", onMouseEnter);
-            map.addEventListener("mouseleave", onMouseLeave);
+            map.addEventListener("mouseenter", onMouseMapEnter);
+            map.addEventListener("mouseleave", onMouseMapLeave);
         }
         return () => {
             window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("keydown", onKeyDown);
             window.removeEventListener("keyup", onKeyUp);
             if (map) {
-                map.removeEventListener("mouseenter", onMouseEnter);
-                map.removeEventListener("mouseleave", onMouseLeave);
+                map.removeEventListener("mouseenter", onMouseMapEnter);
+                map.removeEventListener("mouseleave", onMouseMapLeave);
             }
         };
     }, []);
 
-    return <div id={'scrollHandler'}/>;
+    return <div id={'scrollHandler'} onMouseEnter={mouseOnPromptEnter} onMouseLeave={mouseOnPromptLeave}/>;
 };
 
 export default ScrollHandler;

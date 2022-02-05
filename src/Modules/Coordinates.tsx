@@ -26,12 +26,7 @@ const Coordinates = ({setter}: Setter) => {
 
     useEffect(() => {
         const initialMap = new Map({
-            interactions: defaults({dragPan: false, mouseWheelZoom: false}).extend([
-                new DragPan({
-                    condition: function (event) {
-                        return this.getPointerCount() === 2 || platformModifierKeyOnly(event);
-                    },
-                }),
+            interactions: defaults({dragPan: true, mouseWheelZoom: false}).extend([
                 new MouseWheelZoom({
                     condition: platformModifierKeyOnly,
                 }),

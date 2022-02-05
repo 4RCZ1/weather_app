@@ -118,7 +118,6 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
             const width = canvas.width;
             const height = canvas.height;
             const horizon = height / 6 * 4 * dayNightProportion + height / 6;
-            console.log(horizon);
             setSunX(width / 24 / 60 / 60 * secondsSinceMidnight);
             if (ctx) {
                 const dayNightGradient = ctx.createLinearGradient(0, horizon - height / 15, 0, horizon + height / 20);
