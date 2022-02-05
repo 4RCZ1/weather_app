@@ -6,6 +6,17 @@
       "src": "amogus64.png",
       "sizes": "64x64",
       "type": "image/png"
+    },
+    {
+      "src": "sun-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "sun512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "start_url": ".",

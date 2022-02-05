@@ -6,6 +6,8 @@ import TileLayer from 'ol/layer/Tile';
 import View from 'ol/View';
 import {createStringXY} from 'ol/coordinate';
 import {transform} from 'ol/proj';
+import {DragPan, MouseWheelZoom, defaults} from 'ol/interaction';
+import {platformModifierKeyOnly} from 'ol/events/condition';
 import Modal from "../Helpers/Modal";
 import ScrollHandler from './Coordinates/ScrollHandler';
 
@@ -24,6 +26,16 @@ const Coordinates = ({setter}: Setter) => {
 
     useEffect(() => {
         const initialMap = new Map({
+            interactions: defaults({dragPan: false, mouseWheelZoom: false}).extend([
+                new DragPan({
+                    condition: function (event) {
+                        return this.getPointerCount() === 2 || platformModifierKeyOnly(event);
+                    },
+                }),
+                new MouseWheelZoom({
+                    condition: platformModifierKeyOnly,
+                }),
+            ]),
             controls: [],
             layers: [
                 new TileLayer({
