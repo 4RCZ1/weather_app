@@ -1,3 +1,4 @@
+@use 'variables';
 .backdrop{
   position: fixed;
   top: 0;
@@ -15,13 +16,34 @@
   border-radius: 10px;
   text-align: center;
   button{
-    color: #444;
-    border-color: #444;
+    color: inherit;
+    border: none;
+    border-radius: 10px;
+    padding:5px 10px;
     font-weight: bold;
     margin-top: 20px;
+    transition: all 0.2s ease-in-out;
+  }
+  button:hover{
+    border-radius: 5px;
   }
   p{
-    color: #444;
     font-weight: bold;
+  }
+}
+.whiteMode{
+  .modal{
+    background: variables.$basicBoxes;
+    button{
+      background: variables.$basicBlue;
+    }
+  }
+}
+.darkMode{
+  .modal{
+    background: variables.$darkBoxes;
+    button{
+      background: variables.$darkBlue;
+    }
   }
 }
