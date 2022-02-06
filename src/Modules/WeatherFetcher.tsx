@@ -45,8 +45,11 @@ interface weatherFetcherProps {
 }
 
 const correctCoordinates = (coordinates: number): number => {
-    if (Math.abs(coordinates) > 180) {
+    while (coordinates > 180) {
         coordinates = coordinates - 360;
+    }
+    while (coordinates < -180) {
+        coordinates = coordinates + 360;
     }
     return coordinates;
 }
@@ -56,7 +59,6 @@ const WeatherFetcher = ({coordinates, units}: weatherFetcherProps) => {
     const [location, setLocation] = React.useState<Location | null>(null);
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState("xd");
-    //const [lastRequestTimestamp, setLastRequestTimestamp] = React.useState<number>(0);
 
     const coords: string = correctCoordinates(coordinates[1]) + ',' + correctCoordinates(coordinates[0]);
     const options = {
