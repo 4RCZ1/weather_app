@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# Weather App Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This project is a weather application built using React and TypeScript. It fetches weather data from an API and displays
+it to the user. The application provides information about temperature, wind speed, weather type, humidity, pressure,
+cloud coverage, and astronomical data like sunrise, sunset, moon phase, and moon illumination.
 
-In the project directory, you can run:
+## Key Files
 
-### `npm start`
+### `src/Modules/TimeFetcher.tsx`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This module fetches and handles time-related data such as sunrise, sunset, moon phase, and moon illumination. It uses
+the `axios` library to make a GET request to the weather API. The fetched data is then set to the state and used to
+render the `DayNightCycle` component.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `src/Modules/WeatherFetcher.tsx`
 
-### `npm test`
+This module fetches and handles weather data such as temperature, wind speed, weather type, humidity, pressure, and
+cloud coverage. It uses the `axios` library to make a GET request to the weather API. The fetched data is then set to
+the state and used to render various components like `Temperature`, `Wind`, `Type`, `Details`, and `TimeFetcher`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `src/index.tsx`
 
-### `npm run build`
+This is the entry point of the application. It renders the `App` component into the root element of the page. It also
+registers a service worker for offline capabilities and reports web vitals for performance analysis.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The project uses several dependencies for various functionalities:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `react` and `react-dom` for building the user interface.
+- `axios` for making HTTP requests.
+- `@emotion/react` and `@emotion/styled` for styling components.
+- `@mui/core` and `@mui/material` for Material-UI components.
+- `@terrestris/react-geo` for geospatial functionalities.
+- `framer-motion` for animations.
+- `ol` for OpenLayers mapping library.
+- `react-intersection-observer` for handling intersection observer API.
+- `sass` for using SCSS styles.
+- `typescript` for static types.
+- `workbox-cli` for generating a service worker.
+- `gh-pages` for deploying the application to GitHub Pages.
 
-### `npm run eject`
+## Scripts
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The project includes several scripts for development, testing, and deployment:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `start`: Starts the development server.
+- `build`: Builds the application for production.
+- `test`: Runs the test suite.
+- `eject`: Ejects the application from create-react-app.
+- `predeploy`: Runs the build script before deployment.
+- `deploy`: Deploys the application to GitHub Pages.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Running the Project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run the project, use the `yarn start` or `npm start` command. This will start the development server. To build the
+project for production, use the `yarn build` or `npm run build` command. To deploy the application to GitHub Pages, use
+the `yarn deploy` or `npm run deploy` command.
