@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch';
 import {FormControlLabel, FormGroup} from '@mui/material';
 import clsx from "clsx";
 import {styled} from '@mui/system';
-import {useSwitch, UseSwitchProps} from "@mui/base/SwitchUnstyled";
+import {useSwitch, UseSwitchProps} from "@mui/core/SwitchUnstyled";
 
 const blue = {
     700: '#0059B2',
