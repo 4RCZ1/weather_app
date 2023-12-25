@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/weather_app/static/css/main.69dc3ba3.css",
-    "main.js": "/weather_app/static/js/main.68a3dae9.js",
-    "static/js/389.c4e2cc6b.chunk.js": "/weather_app/static/js/389.c4e2cc6b.chunk.js",
-    "static/js/787.dc96a67d.chunk.js": "/weather_app/static/js/787.dc96a67d.chunk.js",
-    "static/js/938.da72016d.chunk.js": "/weather_app/static/js/938.da72016d.chunk.js",
-    "static/js/881.f1df3d28.chunk.js": "/weather_app/static/js/881.f1df3d28.chunk.js",
+    "main.css": "/weather_app/static/css/main.214c0c7b.css",
+    "main.js": "/weather_app/static/js/main.dd6659c2.js",
+    "static/js/389.f8ae1c01.chunk.js": "/weather_app/static/js/389.f8ae1c01.chunk.js",
+    "static/js/787.42650831.chunk.js": "/weather_app/static/js/787.42650831.chunk.js",
+    "static/js/938.a0e53d11.chunk.js": "/weather_app/static/js/938.a0e53d11.chunk.js",
+    "static/js/130.37673580.chunk.js": "/weather_app/static/js/130.37673580.chunk.js",
     "service-worker.js": "/weather_app/service-worker.js",
     "index.html": "/weather_app/index.html",
-    "main.69dc3ba3.css.map": "/weather_app/static/css/main.69dc3ba3.css.map",
-    "main.68a3dae9.js.map": "/weather_app/static/js/main.68a3dae9.js.map",
-    "389.c4e2cc6b.chunk.js.map": "/weather_app/static/js/389.c4e2cc6b.chunk.js.map",
-    "787.dc96a67d.chunk.js.map": "/weather_app/static/js/787.dc96a67d.chunk.js.map",
-    "938.da72016d.chunk.js.map": "/weather_app/static/js/938.da72016d.chunk.js.map",
-    "881.f1df3d28.chunk.js.map": "/weather_app/static/js/881.f1df3d28.chunk.js.map"
+    "main.214c0c7b.css.map": "/weather_app/static/css/main.214c0c7b.css.map",
+    "main.dd6659c2.js.map": "/weather_app/static/js/main.dd6659c2.js.map",
+    "389.f8ae1c01.chunk.js.map": "/weather_app/static/js/389.f8ae1c01.chunk.js.map",
+    "787.42650831.chunk.js.map": "/weather_app/static/js/787.42650831.chunk.js.map",
+    "938.a0e53d11.chunk.js.map": "/weather_app/static/js/938.a0e53d11.chunk.js.map",
+    "130.37673580.chunk.js.map": "/weather_app/static/js/130.37673580.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.69dc3ba3.css",
-    "static/js/main.68a3dae9.js"
+    "static/css/main.214c0c7b.css",
+    "static/js/main.dd6659c2.js"
   ]
 }
