@@ -33,7 +33,7 @@ const clearCanvas = (canvas: HTMLCanvasElement | null) => {
  * @param timezone timezone offset in seconds
  */
 const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPhase, moonIllumination}: Cycle) => {
-    const [intervals, setIntervals] = useState<number>(0);
+    const [, setIntervals] = useState<number>(0);
     let mainStep = 0;
     const maxMainStep = 90;
     const dayLength = sunset - sunrise;
@@ -169,7 +169,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
     }
 
     useEffect(() => {
-        let interval: null | NodeJS.Timer = null;
+        let interval: null | NodeJS.Timeout = null;
         let timeoutId: NodeJS.Timeout | null = null;
         const resizeListener = () => {
             if (timeoutId) {
@@ -190,7 +190,7 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
                 initialAnimation();
                 window.addEventListener('resize', resizeListener);
             }
-        }, 100);
+        }, 200);
         return () => {
             if (interval) {
                 clearInterval(interval);

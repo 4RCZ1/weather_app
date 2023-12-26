@@ -1,7 +1,8 @@
-import React, {useEffect, Suspense, lazy} from 'react';
+import React, {useEffect, lazy} from 'react';
 import axios from 'axios';
 //import DayNightCycle from "./WeatherData/DayNightCycle";
 import {ASTRONOMY} from "./WeatherData/Mocks";
+import {Coordinates} from "../Services/WeatherAPI";
 
 const DayNightCycle = lazy(() => import('./WeatherData/DayNightCycle'));
 
@@ -20,7 +21,8 @@ const convertTime = (time: string) => {
     return Math.floor(Date.parse(new Date().toDateString() + ' ' + time) / 1000);
 }
 
-const TimeFetcher = ({coords}: { coords: string }) => {
+const TimeFetcher = ({coordinates}: { coordinates: Coordinates }) => {
+    const coords: string = coordinates[1] + ',' + coordinates[0];
     const [time, timeSetter] = React.useState<Time | null>(null);
 
     const options = {

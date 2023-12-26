@@ -14,7 +14,7 @@ This module fetches and handles time-related data such as sunrise, sunset, moon 
 the `axios` library to make a GET request to the weather API. The fetched data is then set to the state and used to
 render the `DayNightCycle` component.
 
-### `src/Modules/WeatherFetcher.tsx`
+### `src/Modules/WeatherDetails.tsx`
 
 This module fetches and handles weather data such as temperature, wind speed, weather type, humidity, pressure, and
 cloud coverage. It uses the `axios` library to make a GET request to the weather API. The fetched data is then set to

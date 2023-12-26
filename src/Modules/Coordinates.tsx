@@ -10,6 +10,7 @@ import {DragPan, MouseWheelZoom, defaults} from 'ol/interaction';
 import {platformModifierKeyOnly} from 'ol/events/condition';
 import Modal from "../Helpers/Modal";
 import ScrollHandler from './Coordinates/ScrollHandler';
+import {Coordinates as CoordinatesType} from "../Services/WeatherAPI";
 
 const mousePositionControl = new MousePosition({
     coordinateFormat: createStringXY(4),
@@ -17,7 +18,7 @@ const mousePositionControl = new MousePosition({
 })
 
 interface Setter {
-    setter: (value: number[]) => void;
+    setter: (value: CoordinatesType) => void;
 }
 
 const Coordinates = ({setter}: Setter) => {
@@ -43,15 +44,19 @@ const Coordinates = ({setter}: Setter) => {
                 zoom: 2,
             }),
         });
+        const correctCoordinates = (coordinates: number): number => {
+            return ((coordinates + 180) % 360) - 180;
+        }
         initialMap.on('singleclick', function (evt) {
-            setter(transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
+            const coord = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+            setter([correctCoordinates(coord[0]), correctCoordinates(coord[1])]);
         });
         navigator.geolocation.getCurrentPosition(location => {
             initialMap.setView(new View({
                 center: transform([location.coords.longitude, location.coords.latitude], 'EPSG:4326', 'EPSG:3857'),
                 zoom: 15,
             }));
-            setter([location.coords.longitude, location.coords.latitude]);
+            setter([correctCoordinates(location.coords.longitude), correctCoordinates(location.coords.latitude)]);
         });
         setMap(initialMap);
     }, []);

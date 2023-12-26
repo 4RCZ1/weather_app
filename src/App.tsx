@@ -1,14 +1,15 @@
 import React, {useState, lazy, Suspense} from 'react';
 import Coordinates from "./Modules/Coordinates";
-//import WeatherFetcher from "./Modules/WeatherFetcher";
+//import WeatherDetails from "./Modules/WeatherDetails";
 import Header from "./Modules/Header";
 import Footer from "./Modules/Footer";
 import ScrollButton from "./Helpers/ScrollButton";
+import {Coordinates as CoordinatesType} from "./Services/WeatherAPI";
 
-const WeatherFetcher = lazy(() => import("./Modules/WeatherFetcher"));
+const WeatherFetcher = lazy(() => import("./Modules/WeatherDetails"));
 
 function App() {
-    const [coordinates, setCoordinates] = useState<number[] | null>(null);
+    const [coordinates, setCoordinates] = useState<CoordinatesType | null>(null);
     const [units, setUnits] = useState<string>('C');
     let lowerModule;
     if(coordinates === null){
