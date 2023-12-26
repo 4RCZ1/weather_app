@@ -11,14 +11,16 @@ cloud coverage, and astronomical data like sunrise, sunset, moon phase, and moon
 ### `src/Modules/TimeFetcher.tsx`
 
 This module fetches and handles time-related data such as sunrise, sunset, moon phase, and moon illumination. It uses
-the `axios` library to make a GET request to the weather API. The fetched data is then set to the state and used to
+the `axios` library to make a GET request to the weather API, it should also use its own class in the future for better
+separation of concerns. The fetched data is then set to the state and used to
 render the `DayNightCycle` component.
 
 ### `src/Modules/WeatherDetails.tsx`
 
 This module fetches and handles weather data such as temperature, wind speed, weather type, humidity, pressure, and
-cloud coverage. It uses the `axios` library to make a GET request to the weather API. The fetched data is then set to
-the state and used to render various components like `Temperature`, `Wind`, `Type`, `Details`, and `TimeFetcher`.
+cloud coverage. It uses the `WeatherAPI` class from `src/Services/WeatherAPI.ts` to fetch the weather data. The fetched
+data is then set to the state and used to render various components like `Temperature`, `Wind`, `Type`, `Details`,
+and `TimeFetcher`.
 
 ### `src/index.tsx`
 
