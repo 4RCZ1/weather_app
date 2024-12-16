@@ -12,9 +12,10 @@ import {Location, Weather, Coordinates} from "../Services/WeatherAPI";
 interface weatherDetailsProps {
     coordinates: Coordinates;
     units: string;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const WeatherDetails = ({coordinates, units}: weatherDetailsProps) => {
+const WeatherDetails = ({coordinates, units, setLoading}: weatherDetailsProps) => {
         const [weather, setWeather] = React.useState<Weather | null>(null);
         const [location, setLocation] = React.useState<Location | null>(null);
         const [showModal, setShowModal] = useState(false);
@@ -22,6 +23,7 @@ const WeatherDetails = ({coordinates, units}: weatherDetailsProps) => {
 
 
         useEffect(() => {
+            setLoading(true);
             WeatherAPI.getWeather(coordinates, false).then(weatherData => {
                 if (typeof weatherData === "string") {
                     setMessage(weatherData);
@@ -34,8 +36,9 @@ const WeatherDetails = ({coordinates, units}: weatherDetailsProps) => {
                         setTimeout(()=> element.scrollIntoView({behavior: "smooth"}), 100);
                     }
                 }
+                setLoading(false);
             });
-        }, [coordinates]);
+        }, [coordinates, setLoading]);
 
         const weatherOutput = () => {
             if (weather && location && coordinates) {

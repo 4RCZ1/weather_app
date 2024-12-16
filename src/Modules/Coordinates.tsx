@@ -9,11 +9,12 @@ import {platformModifierKeyOnly} from 'ol/events/condition';
 import ScrollHandler from './Coordinates/ScrollHandler';
 import {Coordinates as CoordinatesType} from '../Services/WeatherAPI';
 
-interface Setter {
-    setter: (value: CoordinatesType) => void;
+interface CoordinatesProps {
+    setCoordinates: React.Dispatch<React.SetStateAction<CoordinatesType | null>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Coordinates = ({setter}: Setter) => {
+const Coordinates = ({setCoordinates, setLoading}: CoordinatesProps) => {
     const mapElement = useRef<HTMLDivElement>(null);
     const mapRef = useRef<Map | null>(null);
 
@@ -44,19 +45,23 @@ const Coordinates = ({setter}: Setter) => {
 
             mapRef.current.on('singleclick', function (evt) {
                 const coord = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
-                setter([correctCoordinates(coord[0]), correctCoordinates(coord[1])]);
+                setCoordinates([correctCoordinates(coord[0]), correctCoordinates(coord[1])]);
             });
 
+            setLoading(true);
             navigator.geolocation.getCurrentPosition(location => {
+                setLoading(false);
                 if(!mapRef.current) return;
                 mapRef.current.setView(new View({
                     center: transform([location.coords.longitude, location.coords.latitude], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 15,
                 }));
-                setter([correctCoordinates(location.coords.longitude), correctCoordinates(location.coords.latitude)]);
+                setCoordinates([correctCoordinates(location.coords.longitude), correctCoordinates(location.coords.latitude)]);
+            }, () => {
+                setLoading(false);
             });
         }
-    }, [setter]);
+    }, [setCoordinates, setLoading]);
 
     return (
         <div id="coordinates">
