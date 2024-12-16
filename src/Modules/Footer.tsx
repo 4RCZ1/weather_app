@@ -9,7 +9,7 @@ const Footer = () => {
                     <li><a href={'https://github.com/4RCZ1'}>More projects</a></li>
                 </ul>
                 <p>
-                    Weather App © 2022 Marcin Alchimowicz
+                    Weather App © 2024 Marcin Alchimowicz
                 </p>
             </div>
         </footer>

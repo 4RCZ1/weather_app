@@ -12,9 +12,9 @@ function App() {
     const [coordinates, setCoordinates] = useState<CoordinatesType | null>(null);
     const [units, setUnits] = useState<string>('C');
     let lowerModule;
-    if(coordinates === null){
+    if (coordinates === null) {
         lowerModule = <div>Click on the map to select coordinates, or allow geolocation on this website</div>
-    }else(
+    } else (
         lowerModule = <WeatherFetcher coordinates={coordinates} units={units}/>
     )
     return (
@@ -24,10 +24,10 @@ function App() {
                 <Coordinates setter={setCoordinates}/>
                 {lowerModule}
                 <Footer/>
-                <ScrollButton/>
+                {coordinates && <ScrollButton/>}
             </Suspense>
         </div>
-  );
+    );
 }
 
 export default App;

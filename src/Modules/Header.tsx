@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch';
 import {FormControlLabel, FormGroup} from '@mui/material';
 import clsx from "clsx";
 import {styled} from '@mui/system';
-import {useSwitch, UseSwitchProps} from "@mui/core/SwitchUnstyled";
+import {useSwitch, SwitchProps} from "@mui/base";
 
 const blue = {
     700: '#0059B2',
@@ -91,7 +91,7 @@ const switchModes = () => {
     }
 }
 
-function DarkModeSwitch(props: UseSwitchProps) {
+function DarkModeSwitch(props: SwitchProps) {
     const {getInputProps, checked, disabled, focusVisible} = useSwitch(props);
 
     const stateClasses = {

@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 
 import Temperature from "./WeatherData/Temperature";
 import Type from "./WeatherData/Type";
 import TimeFetcher from "./TimeFetcher";
 import Wind from "./WeatherData/Wind";
-import {WEATHER} from "./WeatherData/Mocks";
 import Details from "./WeatherData/Details";
 import Modal from "../Helpers/Modal";
-import {scrollToDetails} from "../Helpers/ScrollButton";
 import WeatherAPI from "../Services/WeatherAPI";
 import {Location, Weather, Coordinates} from "../Services/WeatherAPI";
 
@@ -32,6 +29,10 @@ const WeatherDetails = ({coordinates, units}: weatherDetailsProps) => {
                 } else {
                     setWeather(weatherData.weather);
                     setLocation(weatherData.location);
+                    const element = document.getElementById("weather");
+                    if (element) {
+                        setTimeout(()=> element.scrollIntoView({behavior: "smooth"}), 100);
+                    }
                 }
             });
         }, [coordinates]);

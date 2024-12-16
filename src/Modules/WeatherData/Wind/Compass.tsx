@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {motion} from "framer-motion"
 import {useInView} from "react-intersection-observer";
 import Arrow from "./Arrow";
@@ -15,7 +15,16 @@ const Compass = ({deg}: { deg: number }) => {
     const {ref, inView} = useInView({
         threshold: .8
     })
-
+    const [hasAnimated, setHasAnimated] = useState(false);
+    useEffect(() => {
+        if (inView && !hasAnimated) {
+            setTimeout(() => {
+                if (inView && !hasAnimated) {
+                    setHasAnimated(true);
+                }
+            }, 1000);
+        }
+    }, [inView, hasAnimated]);
     return (
         <div id="compass">
             <svg width="150" height="150" viewBox="0 0 508 508" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +55,7 @@ const Compass = ({deg}: { deg: number }) => {
                 id="arrow"
                 transition={spring}
                 initial="hidden"
-                animate={inView ? "visible" : ''}
+                animate={inView && !hasAnimated ? "visible" : ''}
                 variants={{
                     visible: {rotate: deg},
                     hidden: {rotate: deg - 90}
