@@ -21,9 +21,11 @@ function isInViewport(element: HTMLElement | null): boolean {
 }
 
 const clearCanvas = (canvas: HTMLCanvasElement | null) => {
-    if (canvas !== null && canvas.getContext('2d') !== null) {
-        // @ts-ignore
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    if (canvas !== null) {
+        const ctx = canvas.getContext('2d');
+        if (ctx !== null) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
 }
 /**
@@ -130,8 +132,12 @@ const DayNightCycle = ({sunrise, sunset, localtime_epoch, timeDifference, moonPh
         }
     }
 
+    const bezier = (t: number) => {
+        return t * t * (3 - 2 * t);
+    }
+
     const animationStep = (ctx: CanvasRenderingContext2D, width: number, height: number, prevX: number, horizon: number) => {
-        const substepsPerStep = Math.abs(Math.ceil(1.5 * (width / maxMainStep) * Math.sin((width / maxMainStep * mainStep) / width * Math.PI)));
+        const substepsPerStep = (bezier(mainStep / maxMainStep) - bezier((mainStep-1) / maxMainStep))*width;
         let x2 = prevX;
         for (let i = 0; i < substepsPerStep; i++) {
             const y = height / 2;
