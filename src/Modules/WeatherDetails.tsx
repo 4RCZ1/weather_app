@@ -31,10 +31,13 @@ const WeatherDetails = ({coordinates, units, setLoading}: weatherDetailsProps) =
                 } else {
                     setWeather(weatherData.weather);
                     setLocation(weatherData.location);
-                    const element = document.getElementById("weather");
-                    if (element) {
-                        setTimeout(()=> element.scrollIntoView({behavior: "smooth"}), 100);
-                    }
+
+                    setTimeout(() => {
+                        const element = document.getElementById("weather");
+                        if (element) {
+                            element.scrollIntoView({behavior: "smooth"})
+                        }
+                    }, 100)
                 }
                 setLoading(false);
             });
