@@ -34,7 +34,9 @@ const WeatherDetails = ({coordinates, units, setLoading}: weatherDetailsProps) =
 
                     setTimeout(() => {
                         const element = document.getElementById("weather");
+                        console.log(element)
                         if (element) {
+                            console.log("scrolling")
                             element.scrollIntoView({behavior: "smooth"})
                         }
                     }, 100)
