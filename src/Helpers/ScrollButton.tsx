@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 
 const scrollToMap = () => {
     // @ts-ignore
@@ -37,4 +37,4 @@ const ScrollButton = () => {
         </button>
     )
 }
-export default ScrollButton;
+export default memo(ScrollButton);

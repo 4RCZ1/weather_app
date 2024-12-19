@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 const Footer = () => {
     return (
@@ -9,11 +9,11 @@ const Footer = () => {
                     <li><a href={'https://github.com/4RCZ1'}>More projects</a></li>
                 </ul>
                 <p>
-                    Weather App © 2024 Marcin Alchimowicz
+                    Weather App © {new Date().getFullYear()} Marcin Alchimowicz
                 </p>
             </div>
         </footer>
     )
 }
 
-export default Footer;
+export default memo(Footer);

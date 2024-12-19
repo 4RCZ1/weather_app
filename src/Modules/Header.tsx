@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, SetStateAction} from 'react';
 import Switch from '@mui/material/Switch';
 import {FormControlLabel, FormGroup} from '@mui/material';
 import clsx from "clsx";
@@ -112,7 +112,7 @@ function DarkModeSwitch(props: SwitchProps) {
 
 interface headerProps {
     units: string;
-    setUnits: (units: string) => void;
+    setUnits: (units: SetStateAction<"C" | "F">) => void;
 }
 
 const Header = ({units, setUnits}: headerProps) => {
@@ -140,4 +140,6 @@ const Header = ({units, setUnits}: headerProps) => {
     )
 }
 
-export default Header;
+export default memo(Header, (prevProps, nextProps) => {
+    return prevProps.units === nextProps.units;
+});

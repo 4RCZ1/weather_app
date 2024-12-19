@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
 import TileLayer from 'ol/layer/Tile';
@@ -45,6 +45,7 @@ const Coordinates = ({setCoordinates, setLoading}: CoordinatesProps) => {
 
             mapRef.current.on('singleclick', function (evt) {
                 const coord = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+                console.log('setting coords from click')
                 setCoordinates([correctCoordinates(coord[0]), correctCoordinates(coord[1])]);
             });
 
@@ -56,6 +57,7 @@ const Coordinates = ({setCoordinates, setLoading}: CoordinatesProps) => {
                     center: transform([location.coords.longitude, location.coords.latitude], 'EPSG:4326', 'EPSG:3857'),
                     zoom: 15,
                 }));
+                console.log('setting coords')
                 setCoordinates([correctCoordinates(location.coords.longitude), correctCoordinates(location.coords.latitude)]);
             }, () => {
                 setLoading(false);
@@ -71,4 +73,4 @@ const Coordinates = ({setCoordinates, setLoading}: CoordinatesProps) => {
     );
 };
 
-export default Coordinates;
+export default memo(Coordinates);

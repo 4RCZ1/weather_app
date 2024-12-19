@@ -11,16 +11,16 @@ const WeatherFetcher = lazy(() => import("./Modules/WeatherFetcher"));
 function App() {
     const [coordinates, setCoordinates] = useState<CoordinatesType | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const [units, setUnits] = useState<string>('C');
+    const [units, setUnits] = useState<'C'|'F'>('C');
     return (
         <div id="app" className={'whiteMode'}>
             <Backdrop
-                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                sx={(theme) => ({color: '#fff', zIndex: theme.zIndex.drawer + 1})}
                 open={loading}
             >
-                <CircularProgress color="inherit" />
+                <CircularProgress color="inherit"/>
             </Backdrop>
-            <Suspense fallback={<CircularProgress color="inherit" />}>
+            <Suspense fallback={<CircularProgress color="inherit"/>}>
                 <Header units={units} setUnits={setUnits}/>
                 <Coordinates setCoordinates={setCoordinates} setLoading={setLoading}/>
                 {coordinates === null ?
