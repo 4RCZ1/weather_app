@@ -1,24 +1,17 @@
 import React, {useState, lazy, Suspense} from 'react';
 import Coordinates from "./Modules/Coordinates";
-//import WeatherDetails from "./Modules/WeatherDetails";
 import Header from "./Modules/Header";
 import Footer from "./Modules/Footer";
 import ScrollButton from "./Helpers/ScrollButton";
 import {Coordinates as CoordinatesType} from "./Services/WeatherAPI";
 import {Backdrop, CircularProgress} from "@mui/material";
 
-const WeatherFetcher = lazy(() => import("./Modules/WeatherDetails"));
+const WeatherFetcher = lazy(() => import("./Modules/WeatherFetcher"));
 
 function App() {
     const [coordinates, setCoordinates] = useState<CoordinatesType | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [units, setUnits] = useState<string>('C');
-    let lowerModule;
-    if (coordinates === null) {
-        lowerModule = <div>Click on the map to select coordinates, or allow geolocation on this website</div>
-    } else (
-        lowerModule = <WeatherFetcher coordinates={coordinates} units={units} setLoading={setLoading}/>
-    )
     return (
         <div id="app" className={'whiteMode'}>
             <Backdrop
@@ -30,7 +23,9 @@ function App() {
             <Suspense fallback={<CircularProgress color="inherit" />}>
                 <Header units={units} setUnits={setUnits}/>
                 <Coordinates setCoordinates={setCoordinates} setLoading={setLoading}/>
-                {lowerModule}
+                {coordinates === null ?
+                    <div>Click on the map to select coordinates, or allow geolocation on this website</div> :
+                    <WeatherFetcher coordinates={coordinates} units={units} setLoading={setLoading}/>}
                 <Footer/>
                 {coordinates && <ScrollButton/>}
             </Suspense>
